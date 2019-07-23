@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Requests;
 using Api.User;
 using Db;
 using Domain;
@@ -21,8 +22,14 @@ namespace LightBilling.Controllers
             _service = service;
         }
 
-        // GET api/values
         [HttpPost]
+        public async Task<JsonResult> User([FromBody] PageRequest request)
+        {
+            var result = await _service.GetPage(request);
+            return Json(result);
+        }
+
+        [HttpPut]
         public async Task<JsonResult> User([FromBody] UserDto request)
         {
             var result = await _service.CreateUser(request);
