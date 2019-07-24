@@ -6,7 +6,6 @@ using Api.Responses;
 using Api.User;
 using AutoMapper;
 using Db;
-using Domain;
 using Domain.User;
 using LightBilling.Interfaces;
 
@@ -21,16 +20,16 @@ namespace LightBilling.Services
             _mapper = mapper;
         }
 
-        public Task<PageResponse<UserDto>> GetPage(PageRequest request)
+        public Task<PageResponse<SystemUserDto>> GetPage(PageRequest request)
         {
             using (var db = new ApplicationContext())
             {
-                var total = db.Users.Count();
-                var dbResult = db.Users.Skip(request.Skip).Take(request.Limit);
+                var total = db.SystemUsers.Count();
+                var dbResult = db.SystemUsers.Skip(request.Skip).Take(request.Limit);
 
-                var result = new PageResponse<UserDto>
+                var result = new PageResponse<SystemUserDto>
                 {
-                    Data = _mapper.Map<List<UserDto>>(dbResult),
+                    Data = _mapper.Map<List<SystemUserDto>>(dbResult),
                     Total = total
                 };
 
@@ -38,16 +37,16 @@ namespace LightBilling.Services
             }
         }
 
-        public async Task<UserDto> CreateUser(UserDto request)
+        public async Task<SystemUserDto> CreateUser(SystemUserDto request)
         {
-            var domain = _mapper.Map<User>(request);
+            var domain = _mapper.Map<SystemUser>(request);
 
             using (var db = new ApplicationContext())
             {
-                var result = await db.Users.AddAsync(domain);
+                var result = await db.SystemUsers.AddAsync(domain);
                 await db.SaveChangesAsync();
 
-                return _mapper.Map<UserDto>(result.Entity);
+                return _mapper.Map<SystemUserDto>(result.Entity);
             }
         }
     }

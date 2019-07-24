@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-
-namespace Domain.House
+namespace Api.House
 {
     /// <summary>
     /// Сущность дома
     /// </summary>
-    public class House
+    public class HouseDto
     {
         public int Id { get; set; }
         public string Address { get; set; }
@@ -13,6 +11,6 @@ namespace Domain.House
         public string AdditionalNumber { get; set; }
         public string Comment { get; set; }
 
-        public List<Client.Client> Clients { get; set; }
+        //public List<Client> Clients { get; set; }
     }
 }

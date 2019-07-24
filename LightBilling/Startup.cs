@@ -30,6 +30,8 @@ namespace LightBilling {
             services.AddSingleton(mapperConfiguration.CreateMapper());
             
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IHouseService, HouseService>();
+            services.AddScoped<HouseMapper>();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

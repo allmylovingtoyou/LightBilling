@@ -7,8 +7,8 @@ namespace LightBilling.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDto> CreateUser(UserDto request);
+        Task<SystemUserDto> CreateUser(SystemUserDto request);
 
-        Task<PageResponse<UserDto>> GetPage(PageRequest request);
+        Task<PageResponse<SystemUserDto>> GetPage(PageRequest request);
     }
 }

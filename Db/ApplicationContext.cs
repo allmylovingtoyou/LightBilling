@@ -9,7 +9,7 @@ namespace Db
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<SystemUser> SystemUsers { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<House> Houses { get; set; }
         

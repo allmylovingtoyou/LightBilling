@@ -16,4 +16,8 @@
       <ProjectReference Include="..\LightBilling\LightBilling.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Postman" />
+    </ItemGroup>
+
 </Project>

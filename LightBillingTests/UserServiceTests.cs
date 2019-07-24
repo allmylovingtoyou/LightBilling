@@ -14,12 +14,12 @@ namespace LightBillingTests
         {
             using (var db = new ApplicationContext())
             {
-                var domain = new User {Login = "login"};
+                var domain = new SystemUser {Login = "login"};
 
-                var result = db.Users.Add(domain);
+                var result = db.SystemUsers.Add(domain);
                 db.SaveChanges();
 
-                var fromDb = db.Users.Find(result.Entity.Id);
+                var fromDb = db.SystemUsers.Find(result.Entity.Id);
 
                 Assert.Equal(domain.Login, fromDb.Login);
             }

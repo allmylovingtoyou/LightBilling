@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "dc8fcef2-49fc-4c3c-86da-545187f2c4cb",
+		"name": "LightBilling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SystemUser",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"login\" : \"qwe\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/systemuser/systemuser",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"systemuser",
+								"systemuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPage User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/systemuser/systemuser",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"systemuser",
+								"systemuser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "House",
+			"item": [
+				{
+					"name": "Add House",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPage House",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:5000/api/user/get",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user",
+						"get"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
