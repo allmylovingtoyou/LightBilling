@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Requests;
-using Api.User;
+using Api.House;
 using Db;
 using Domain;
 using LightBilling.Interfaces;
@@ -13,26 +13,26 @@ namespace LightBilling.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UserController : Controller
+    public class HouseController : Controller
     {
-        private readonly IUserService _service;
+        private readonly IHouseService _service;
 
-        public UserController(IUserService service)
+        public HouseController(IHouseService service)
         {
             _service = service;
         }
 
         [HttpPost]
-        public async Task<JsonResult> User([FromBody] PageRequest request)
+        public async Task<JsonResult> House([FromBody] PageRequest request)
         {
             var result = await _service.GetPage(request);
             return Json(result);
         }
 
         [HttpPut]
-        public async Task<JsonResult> User([FromBody] UserDto request)
+        public async Task<JsonResult> House([FromBody] HouseDto request)
         {
-            var result = await _service.CreateUser(request);
+            var result = await _service.Create(request);
             return Json(result);
         }
     }

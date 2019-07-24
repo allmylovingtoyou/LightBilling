@@ -1,6 +1,8 @@
-﻿using Api.User;
+﻿using Api.House;
+using Api.User;
 using AutoMapper;
 using Domain;
+using Domain.House;
 using Domain.User;
 
 namespace LightBilling.Mapping {
@@ -11,9 +13,13 @@ namespace LightBilling.Mapping {
     public class MappingProfile : Profile {
 
         public MappingProfile() {
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
-            
+            CreateMap<SystemUser, SystemUserDto>();
+            CreateMap<SystemUserDto, SystemUser>();
+
+            CreateMap<House, HouseDto>();
+            CreateMap<HouseDto, House>()
+                .ForMember(x => x.Clients, opt => opt.Ignore());
+
             //.ForMember(x => x.Ololo, opt => opt.Ignore());
         }
 
