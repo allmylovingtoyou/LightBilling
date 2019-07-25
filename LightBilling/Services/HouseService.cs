@@ -4,11 +4,13 @@ using Api.House;
 using Api.Requests;
 using Api.Responses;
 using Db;
+using LightBilling.Extensions;
 using LightBilling.Interfaces;
 using LightBilling.Mapping;
 
 namespace LightBilling.Services
 {
+    /// <inheritdoc />
     public class HouseService : IHouseService
     {
         private readonly HouseMapper _mapper;
@@ -18,6 +20,7 @@ namespace LightBilling.Services
             _mapper = mapper;
         }
 
+        /// <inheritdoc />
         public Task<PageResponse<HouseDto>> GetPage(PageRequest request)
         {
             using (var db = new ApplicationContext())
@@ -35,6 +38,7 @@ namespace LightBilling.Services
             }
         }
 
+        /// <inheritdoc />
         public async Task<HouseDto> Create(HouseDto request)
         {
             var domain = _mapper.ToEntity(request);
@@ -42,6 +46,51 @@ namespace LightBilling.Services
             using (var db = new ApplicationContext())
             {
                 var result = await db.Houses.AddAsync(domain);
+                await db.SaveChangesAsync();
+
+                return _mapper.ToDto(result.Entity);
+            }
+        }
+        
+        /// <inheritdoc />
+        public async Task<HouseDto> Update(HouseUpdateDto request)
+        {
+            //TODO need implement validator
+            
+           using (var db = new ApplicationContext())
+           {
+               var toUpdate = await db.Houses.FindAsync(request.Id);
+
+               if (toUpdate == null)
+               {
+                   throw new InternalExceptions.NotFoundException($"Entity with id {request.Id} not found");
+               }
+
+               toUpdate.Address = request.Address;
+               toUpdate.Comment = request.Comment;
+               toUpdate.Number = request.Number;
+               toUpdate.AdditionalNumber = request.AdditionalNumber;
+
+                var result = db.Houses.Update(toUpdate);
+                await db.SaveChangesAsync();
+
+                return _mapper.ToDto(result.Entity);
+            }
+        }
+
+        /// <inheritdoc />
+        public async Task<HouseDto> Delete(int id)
+        {
+            using (var db = new ApplicationContext())
+            {
+                var toDelete = await db.Houses.FindAsync(id);
+                
+                if (toDelete == null)
+                {
+                    throw new InternalExceptions.NotFoundException($"Entity with id {id} not found");
+                }
+                
+                var result = db.Houses.Remove(toDelete);
                 await db.SaveChangesAsync();
 
                 return _mapper.ToDto(result.Entity);

@@ -35,5 +35,19 @@ namespace LightBilling.Controllers
             var result = await _service.Create(request);
             return Json(result);
         }
+        
+        [HttpPatch]
+        public async Task<JsonResult> House([FromBody] HouseUpdateDto request)
+        {
+            var result = await _service.Update(request);
+            return Json(result);
+        }
+        
+        [HttpDelete]
+        public async Task<JsonResult> House([FromBody] DeleteRequest request)
+        {
+            var result = await _service.Delete(request.Id);
+            return Json(result);
+        }
     }
 }
