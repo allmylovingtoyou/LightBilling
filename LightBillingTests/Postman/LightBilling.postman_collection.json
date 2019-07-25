@@ -101,6 +101,35 @@
 					"response": []
 				},
 				{
+					"name": "Update House",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 145,\n    \"address\": \"Petrova 200\",\n    \"number\": \"16\",\n    \"additionalNumber\": \"asd\",\n    \"comment\": \"Наркоманы в подъезде111\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GetPage House",
 					"request": {
 						"method": "POST",
@@ -114,6 +143,35 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete House",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 1\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",

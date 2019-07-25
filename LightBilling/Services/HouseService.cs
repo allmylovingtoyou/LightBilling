@@ -63,7 +63,7 @@ namespace LightBilling.Services
 
                if (toUpdate == null)
                {
-                   throw new InternalExceptions.NotFoundException($"Entity with id {request.Id} not found");
+                   throw new InternalExceptions.NotFoundException(request.Id.ToString());
                }
 
                toUpdate.Address = request.Address;
@@ -87,7 +87,7 @@ namespace LightBilling.Services
                 
                 if (toDelete == null)
                 {
-                    throw new InternalExceptions.NotFoundException($"Entity with id {id} not found");
+                    throw new InternalExceptions.NotFoundException(id.ToString());
                 }
                 
                 var result = db.Houses.Remove(toDelete);
