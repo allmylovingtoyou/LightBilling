@@ -23,7 +23,7 @@ namespace LightBilling.Services
         /// <inheritdoc />
         public Task<PageResponse<HouseDto>> GetPage(PageRequest request)
         {
-            using (var db = new ApplicationContext())
+            using (var db = new ApplicationDbContext())
             {
                 var total = db.Houses.Count();
                 var dbResult = db.Houses.Skip(request.Skip).Take(request.Limit);
@@ -43,7 +43,7 @@ namespace LightBilling.Services
         {
             var domain = _mapper.ToEntity(request);
 
-            using (var db = new ApplicationContext())
+            using (var db = new ApplicationDbContext())
             {
                 var result = await db.Houses.AddAsync(domain);
                 await db.SaveChangesAsync();
@@ -57,7 +57,7 @@ namespace LightBilling.Services
         {
             //TODO need implement validator
             
-           using (var db = new ApplicationContext())
+           using (var db = new ApplicationDbContext())
            {
                var toUpdate = await db.Houses.FindAsync(request.Id);
 
@@ -81,7 +81,7 @@ namespace LightBilling.Services
         /// <inheritdoc />
         public async Task<HouseDto> Delete(int id)
         {
-            using (var db = new ApplicationContext())
+            using (var db = new ApplicationDbContext())
             {
                 var toDelete = await db.Houses.FindAsync(id);
                 

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Db
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<SystemUser> SystemUsers { get; set; }
         public DbSet<Client> Clients { get; set; }

@@ -22,7 +22,7 @@ namespace LightBilling.Services
 
         public Task<PageResponse<SystemUserDto>> GetPage(PageRequest request)
         {
-            using (var db = new ApplicationContext())
+            using (var db = new ApplicationDbContext())
             {
                 var total = db.SystemUsers.Count();
                 var dbResult = db.SystemUsers.Skip(request.Skip).Take(request.Limit);
@@ -41,7 +41,7 @@ namespace LightBilling.Services
         {
             var domain = _mapper.Map<SystemUser>(request);
 
-            using (var db = new ApplicationContext())
+            using (var db = new ApplicationDbContext())
             {
                 var result = await db.SystemUsers.AddAsync(domain);
                 await db.SaveChangesAsync();
