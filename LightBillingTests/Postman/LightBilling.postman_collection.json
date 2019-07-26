@@ -101,6 +101,44 @@
 					"response": []
 				},
 				{
+					"name": "ById House",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House?id=2",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update House",
 					"request": {
 						"method": "PATCH",

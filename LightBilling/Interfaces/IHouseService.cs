@@ -8,6 +8,8 @@ namespace LightBilling.Interfaces
 {
     public interface IHouseService
     {
+
+        Task<HouseDto> ById(int id);
         Task<HouseDto> Create(HouseDto request);
 
         Task<PageResponse<HouseDto>> GetPage(PageRequest request);

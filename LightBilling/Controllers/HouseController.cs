@@ -22,6 +22,13 @@ namespace LightBilling.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<JsonResult> House(int id)
+        {
+            var result = await _service.ById(id);
+            return Json(result);
+        }
+        
         [HttpPost]
         public async Task<JsonResult> House([FromBody] PageRequest request)
         {

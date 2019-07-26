@@ -19,6 +19,22 @@ namespace LightBilling.Services
         {
             _mapper = mapper;
         }
+        
+        /// <inheritdoc />
+        public async Task<HouseDto> ById(int id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var result = await db.Houses.FindAsync(id);
+                
+                if (result == null)
+                {
+                    throw new InternalExceptions.NotFoundException(id.ToString());
+                }
+
+                return _mapper.ToDto(result);
+            }
+        }
 
         /// <inheritdoc />
         public Task<PageResponse<HouseDto>> GetPage(PageRequest request)
