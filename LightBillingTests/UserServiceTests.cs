@@ -12,7 +12,7 @@ namespace LightBillingTests
         [Fact]
         public void DbSampleTest()
         {
-            using (var db = new ApplicationContext())
+            using (var db = new ApplicationDbContext())
             {
                 var domain = new SystemUser {Login = "login"};
 

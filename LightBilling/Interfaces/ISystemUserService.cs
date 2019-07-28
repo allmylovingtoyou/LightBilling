@@ -5,10 +5,10 @@ using Api.User;
 
 namespace LightBilling.Interfaces
 {
-    public interface IUserService
+    public interface ISystemUserService
     {
         Task<SystemUserDto> CreateUser(SystemUserDto request);
 
-        Task<PageResponse<SystemUserDto>> GetPage(PageRequest request);
+        Task<PageResponse<SystemUserDto>> GetPage(PageRequest<SystemUserFilter> request);
     }
 }

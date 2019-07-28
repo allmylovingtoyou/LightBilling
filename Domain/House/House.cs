@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Domain.Network;
 
 namespace Domain.House
 {
@@ -13,6 +14,10 @@ namespace Domain.House
         public string AdditionalNumber { get; set; }
         public string Comment { get; set; }
 
-        public List<Client.Client> Clients { get; set; }
+        public string Porch { get; set; }
+
+        public virtual Subnet Subnet { get; set; }
+
+        //public List<Client.Client> Clients { get; set; }
     }
 }

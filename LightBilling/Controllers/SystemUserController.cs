@@ -15,15 +15,15 @@ namespace LightBilling.Controllers
     [ApiController]
     public class SystemUserController : Controller
     {
-        private readonly IUserService _service;
+        private readonly ISystemUserService _service;
 
-        public SystemUserController(IUserService service)
+        public SystemUserController(ISystemUserService service)
         {
             _service = service;
         }
 
         [HttpPost]
-        public async Task<JsonResult> SystemUser([FromBody] PageRequest request)
+        public async Task<JsonResult> SystemUser([FromBody] PageRequest<SystemUserFilter> request)
         {
             var result = await _service.GetPage(request);
             return Json(result);

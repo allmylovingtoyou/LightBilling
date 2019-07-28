@@ -84,7 +84,74 @@
 						],
 						"body": {
 							"mode": "raw",
+							"raw": "{\n\t\"Address\" : \"xyeva\",\n\t\"Number\" : 17,\n\t\"Comment\" : \"Наркоманы в подъезде\",\n\t\"subnet\" : {\"Address\" : \"1\"}\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ById House",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House?id=1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update House",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 145,\n    \"address\": \"Petrova 200\",\n    \"number\": \"16\",\n    \"additionalNumber\": \"asd\",\n    \"comment\": \"Наркоманы в подъезде111\"\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -113,7 +180,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"address\" : \"\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"number\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -124,6 +191,194 @@
 								"api",
 								"House",
 								"House"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete House",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 1\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tariff",
+			"item": [
+				{
+					"name": "Add Tariff",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"xyeva\",\n\t\"Comment\" : \"xyent\",\n\t\"IsPeriodic\" : true,\n\t\t\"type\" : \"Any\",\n\t\tInputRate : 512,\n\t\tOutputRate : 512\n\t\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Tariff/Tariff",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Tariff",
+								"Tariff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ById Tariff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Tariff/Tariff?id=2",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Tariff",
+								"Tariff"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tariff",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"xyeva\",\n    \"comment\": \"xyent\",\n    \"isPeriodic\": true,\n    \"type\": 2,\n    \"typeString\": \"Any\",\n    \"inputRate\": 513,\n    \"outputRate\": 512\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Tariff/Tariff",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Tariff",
+								"Tariff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPage Tariff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"name\" : \"xy\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Tariff/Tariff",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Tariff",
+								"Tariff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tariff",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 1\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Tariff/Tariff",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Tariff",
+								"Tariff"
 							]
 						}
 					},

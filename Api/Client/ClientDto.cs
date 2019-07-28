@@ -1,11 +1,9 @@
-using Domain.Network;
+using Api.House;
+using Api.Network;
 
-namespace Domain.Client
+namespace Api.Client
 {
-    /// <summary>
-    /// Сущность абонента. Стринги в большинстве полей, т.к. это Лайт биллинг)
-    /// </summary>
-    public class Client
+    public class ClientDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -27,9 +25,9 @@ namespace Domain.Client
         public bool IsDeleted { get; set; }
 
         public int HouseId { get; set; }
-        public virtual House.House House { get; set; }
+        public HouseDto House { get; set; }
 
         public int FullAddressId { get; set; }
-        public virtual FullAddress FullAddress { get; set; }
+        public FullAddressDto FullNetworkAddress { get; set; }
     }
 }
