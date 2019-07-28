@@ -27,9 +27,13 @@ namespace LightBilling
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
             services.AddSingleton(mapperConfiguration.CreateMapper());
 
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISystemUserService, SystemUserService>();
+            
             services.AddScoped<IHouseService, HouseService>();
             services.AddScoped<HouseMapper>();
+            
+            services.AddScoped<ITariffService, TariffService>();
+            services.AddScoped<TariffMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

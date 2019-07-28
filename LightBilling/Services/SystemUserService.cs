@@ -11,16 +11,16 @@ using LightBilling.Interfaces;
 
 namespace LightBilling.Services
 {
-    public class UserService : IUserService
+    public class SystemUserService : ISystemUserService
     {
         private readonly IMapper _mapper;
 
-        public UserService(IMapper mapper)
+        public SystemUserService(IMapper mapper)
         {
             _mapper = mapper;
         }
 
-        public Task<PageResponse<SystemUserDto>> GetPage(PageRequest request)
+        public Task<PageResponse<SystemUserDto>> GetPage(PageRequest<SystemUserFilter> request)
         {
             using (var db = new ApplicationDbContext())
             {
