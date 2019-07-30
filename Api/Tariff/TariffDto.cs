@@ -17,5 +17,8 @@ namespace Api.Tariff
         public int InputRate { get; set; }
         
         public int OutputRate { get; set; }
+
+        public double Cost { get; set; } = 0;
+
     }
 }

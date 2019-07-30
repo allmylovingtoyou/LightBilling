@@ -9,6 +9,70 @@
 			"name": "SystemUser",
 			"item": [
 				{
+					"name": "SystemUser",
+					"item": [
+						{
+							"name": "Add User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"qwe\"\n}"
+								},
+								"url": {
+									"raw": "{{apiUrl}}/api/systemuser/systemuser",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"api",
+										"systemuser",
+										"systemuser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPage User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+								},
+								"url": {
+									"raw": "{{apiUrl}}/api/systemuser/systemuser",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"api",
+										"systemuser",
+										"systemuser"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Add User",
 					"request": {
 						"method": "PUT",
@@ -69,6 +133,69 @@
 			]
 		},
 		{
+			"name": "Subnet",
+			"item": [
+				{
+					"name": "GetFreeSubnets",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Subnet/Free",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Subnet",
+								"Free"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllSubnets",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Subnet/all",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Subnet",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "House",
 			"item": [
 				{
@@ -119,7 +246,7 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/House/House?id=1",
+							"raw": "{{apiUrl}}/api/House/House?id=506",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -131,7 +258,45 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "506"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate House",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/Generate?count=500",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"Generate"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "500"
 								}
 							]
 						}
@@ -151,7 +316,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 145,\n    \"address\": \"Petrova 200\",\n    \"number\": \"16\",\n    \"additionalNumber\": \"asd\",\n    \"comment\": \"Наркоманы в подъезде111\"\n}"
+							"raw": "{\n    \"id\": 507,\n    \"address\": \"xyeva\",\n    \"number\": \"17\",\n    \"additionalNumber\": null,\n    \"comment\": \"Наркоманы в подъезде\",\n    \"porch\": null,\n    \"subnet\" : {\"id\" : 1}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -180,7 +345,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"address\" : \"\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"number\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"address\" : \"\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"address\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -224,6 +389,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ById House Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/House/House?id=1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"House",
+								"House"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -243,7 +446,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\" : \"xyeva\",\n\t\"Comment\" : \"xyent\",\n\t\"IsPeriodic\" : true,\n\t\t\"type\" : \"Any\",\n\t\tInputRate : 512,\n\t\tOutputRate : 512\n\t\n}"
+							"raw": "{\n\t\"name\" : \"xyeva\",\n\t\"Comment\" : \"xyent\",\n\t\"IsPeriodic\" : true,\n\t\t\"type\" : \"2\",\n\t\tInputRate : 512,\n\t\tOutputRate : 512\n\t\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Tariff/Tariff",
@@ -339,7 +542,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"name\" : \"xy\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"type\" : 2\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Tariff/Tariff",

@@ -1,3 +1,5 @@
+using Api.Network;
+
 namespace Api.House
 {
     /// <summary>
@@ -10,5 +12,7 @@ namespace Api.House
         public string Number { get; set; }
         public string AdditionalNumber { get; set; }
         public string Comment { get; set; }
+        
+        public SubnetDto Subnet { get; set; }
     }
 }

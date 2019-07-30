@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Api.House;
 using Api.Requests;
@@ -6,10 +7,12 @@ using Api.Requests.Extensions;
 using Api.Responses;
 using Db;
 using Domain.House;
+using Domain.Network;
 using LightBilling.Extensions;
 using LightBilling.Interfaces;
 using LightBilling.Mapping;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses.Expressions;
 
 namespace LightBilling.Services
 {
@@ -17,10 +20,12 @@ namespace LightBilling.Services
     public class HouseService : IHouseService
     {
         private readonly HouseMapper _mapper;
+        private readonly SubnetMapper _subnetMapper;
 
-        public HouseService(HouseMapper mapper)
+        public HouseService(HouseMapper mapper, SubnetMapper subnetMapper)
         {
             _mapper = mapper;
+            _subnetMapper = subnetMapper;
         }
 
         /// <inheritdoc />
@@ -85,17 +90,35 @@ namespace LightBilling.Services
 
             using (var db = new ApplicationDbContext())
             {
-                var toUpdate = await db.Houses.FindAsync(request.Id);
+                var houses = db.Houses.Include(h => h.Subnet).AsQueryable();
+
+                var toUpdate = houses.FirstOrDefault(h => h.Id == request.Id);
 
                 if (toUpdate == null)
                 {
-                    throw new InternalExceptions.NotFoundException(request.Id.ToString());
+                    throw new InternalExceptions.NotFoundException($"house with id  {request.Id}");
                 }
 
                 toUpdate.Address = request.Address;
                 toUpdate.Comment = request.Comment;
                 toUpdate.Number = request.Number;
                 toUpdate.AdditionalNumber = request.AdditionalNumber;
+                if (request.Subnet == null)
+                {
+                    toUpdate.Subnet = null;
+                }
+                else
+                {
+                    var subnet = await db.Subnets.FindAsync(request.Subnet.Id);
+                    if (subnet != null)
+                    {
+                        toUpdate.Subnet = subnet;
+                    }
+                    else
+                    {
+                        throw new InternalExceptions.NotFoundException($"subnet with Id {request.Subnet.Id}");
+                    }
+                }
 
                 var result = db.Houses.Update(toUpdate);
                 await db.SaveChangesAsync();

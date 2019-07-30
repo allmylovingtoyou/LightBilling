@@ -95,7 +95,7 @@ namespace LightBilling.Services
                 toUpdate.Name = request.Name;
                 toUpdate.Comment = request.Comment;
                 toUpdate.IsPeriodic = request.IsPeriodic;
-                toUpdate.Type = (TariffType)request.Type;
+                toUpdate.Type = (TariffType) request.Type;
                 toUpdate.InputRate = request.InputRate;
                 toUpdate.OutputRate = request.OutputRate;
 
@@ -133,6 +133,11 @@ namespace LightBilling.Services
                 if (filter.Name != null)
                 {
                     dbResultMain = dbResultMain.Where(x => x.Name.Contains(filter.Name));
+                }
+
+                if (filter.Type.HasValue)
+                {
+                    dbResultMain = dbResultMain.Where(x => (int)x.Type == (int)filter.Type.Value);
                 }
             }
 
