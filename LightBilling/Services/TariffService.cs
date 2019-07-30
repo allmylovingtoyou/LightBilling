@@ -137,7 +137,7 @@ namespace LightBilling.Services
 
                 if (filter.Type.HasValue)
                 {
-                    dbResultMain = dbResultMain.Where(x => x.Type.Equals(filter.Type.Value));
+                    dbResultMain = dbResultMain.Where(x => (int)x.Type == (int)filter.Type.Value);
                 }
             }
 

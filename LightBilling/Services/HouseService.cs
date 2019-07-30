@@ -17,10 +17,12 @@ namespace LightBilling.Services
     public class HouseService : IHouseService
     {
         private readonly HouseMapper _mapper;
+        private readonly SubnetMapper _subnetMapper;
 
-        public HouseService(HouseMapper mapper)
+        public HouseService(HouseMapper mapper, SubnetMapper subnetMapper)
         {
             _mapper = mapper;
+            _subnetMapper = subnetMapper;
         }
 
         /// <inheritdoc />
@@ -96,6 +98,7 @@ namespace LightBilling.Services
                 toUpdate.Comment = request.Comment;
                 toUpdate.Number = request.Number;
                 toUpdate.AdditionalNumber = request.AdditionalNumber;
+                toUpdate.Subnet = _subnetMapper.ToEntity(request.Subnet);
 
                 var result = db.Houses.Update(toUpdate);
                 await db.SaveChangesAsync();
