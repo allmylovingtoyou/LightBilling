@@ -137,11 +137,8 @@
 			"item": [
 				{
 					"name": "GetFreeSubnets",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -169,11 +166,8 @@
 				},
 				{
 					"name": "GetAllSubnets",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -252,7 +246,7 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/House/House?id=1",
+							"raw": "{{apiUrl}}/api/House/House?id=506",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -264,7 +258,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "506"
 								}
 							]
 						}
@@ -322,7 +316,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 145,\n    \"address\": \"Petrova 200\",\n    \"number\": \"16\",\n    \"additionalNumber\": \"asd\",\n    \"comment\": \"Наркоманы в подъезде111\"\n}"
+							"raw": "{\n    \"id\": 507,\n    \"address\": \"xyeva\",\n    \"number\": \"17\",\n    \"additionalNumber\": null,\n    \"comment\": \"Наркоманы в подъезде\",\n    \"porch\": null,\n    \"subnet\" : {\"id\" : 1}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -548,7 +542,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"name\" : \"xy\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"type\" : 2\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Tariff/Tariff",

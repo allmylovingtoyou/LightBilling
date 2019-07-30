@@ -44,15 +44,15 @@ namespace LightBilling.Controllers
 //            return Json(count);
 //        }
 
-        [HttpGet]
-        public async Task<JsonResult> Free()
+        [HttpPost]
+        public async Task<JsonResult> Free([FromBody] object any)
         {
             var result = await _service.GetFreeSubnets();
             return Json(result);
         }
 
-        [HttpGet]
-        public async Task<JsonResult> All()
+        [HttpPost]
+        public async Task<JsonResult> All([FromBody] object any)
         {
             var result = await _service.GetAllSubnets();
             return Json(result);
