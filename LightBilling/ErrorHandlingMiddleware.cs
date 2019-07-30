@@ -8,29 +8,35 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
 using static LightBilling.Extensions.InternalExceptions;
 
-namespace LightBilling {
-
-    public class ErrorHandlingMiddleware {
-
+namespace LightBilling
+{
+    public class ErrorHandlingMiddleware
+    {
         private readonly RequestDelegate _next;
 
-        public ErrorHandlingMiddleware(RequestDelegate next) {
+        public ErrorHandlingMiddleware(RequestDelegate next)
+        {
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context /* other dependencies */) {
-            try {
+        public async Task Invoke(HttpContext context /* other dependencies */)
+        {
+            try
+            {
                 await _next(context);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 await HandleExceptionAsync(context, ex);
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception) {
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        {
             context.Response.ContentType = "application/json";
 
-            if (exception is NotFoundException) {
+            if (exception is NotFoundException)
+            {
                 context.Response.StatusCode = (int) HttpStatusCode.NotFound;
                 return context.Response.WriteAsync(JsonConvert.SerializeObject(new MessageAndTrace(exception)));
             }
@@ -41,15 +47,16 @@ namespace LightBilling {
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
-        private class MessageAndTrace {
-
-            internal MessageAndTrace(Exception exception) {
+        private class MessageAndTrace
+        {
+            internal MessageAndTrace(Exception exception)
+            {
                 Type = exception.GetType().ToString();
                 Message = exception.Message;
 
                 if (exception is NotFoundException)
                 {
-                    Message = $"Entity with Id {exception.Message} not found";
+                    Message = $"Not found {exception.Message}";
                 }
 
                 Trace = exception.StackTrace.Substring(0, 80);
@@ -59,9 +66,6 @@ namespace LightBilling {
             public string Type { get; set; }
             public string Message { get; set; }
             public string Trace { get; set; }
-
         }
-
     }
-
 }
