@@ -9,6 +9,70 @@
 			"name": "SystemUser",
 			"item": [
 				{
+					"name": "SystemUser",
+					"item": [
+						{
+							"name": "Add User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"qwe\"\n}"
+								},
+								"url": {
+									"raw": "{{apiUrl}}/api/systemuser/systemuser",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"api",
+										"systemuser",
+										"systemuser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPage User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+								},
+								"url": {
+									"raw": "{{apiUrl}}/api/systemuser/systemuser",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"api",
+										"systemuser",
+										"systemuser"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Add User",
 					"request": {
 						"method": "PUT",
@@ -61,6 +125,75 @@
 								"api",
 								"systemuser",
 								"systemuser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subnet",
+			"item": [
+				{
+					"name": "GetFreeSubnets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Subnet/Free",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Subnet",
+								"Free"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllSubnets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Subnet/all",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Subnet",
+								"all"
 							]
 						}
 					},
@@ -157,19 +290,19 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/House/House?id=1",
+							"raw": "{{apiUrl}}/api/House/Generate?count=500",
 							"host": [
 								"{{apiUrl}}"
 							],
 							"path": [
 								"api",
 								"House",
-								"House"
+								"Generate"
 							],
 							"query": [
 								{
-									"key": "id",
-									"value": "1"
+									"key": "count",
+									"value": "500"
 								}
 							]
 						}
@@ -218,7 +351,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"address\" : \"\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"number\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"address\" : \"\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"address\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -319,7 +452,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\" : \"xyeva\",\n\t\"Comment\" : \"xyent\",\n\t\"IsPeriodic\" : true,\n\t\t\"type\" : \"Any\",\n\t\tInputRate : 512,\n\t\tOutputRate : 512\n\t\n}"
+							"raw": "{\n\t\"name\" : \"xyeva\",\n\t\"Comment\" : \"xyent\",\n\t\"IsPeriodic\" : true,\n\t\t\"type\" : \"2\",\n\t\tInputRate : 512,\n\t\tOutputRate : 512\n\t\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Tariff/Tariff",
