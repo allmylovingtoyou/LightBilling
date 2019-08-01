@@ -28,9 +28,7 @@ namespace Db.Migrations
 
                     b.Property<string>("Comment");
 
-                    b.Property<int>("FullAddressId");
-
-                    b.Property<int>("HouseId");
+                    b.Property<int?>("HouseId");
 
                     b.Property<string>("HwIpAddress");
 
@@ -53,8 +51,6 @@ namespace Db.Migrations
                     b.Property<string>("Surname");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FullAddressId");
 
                     b.HasIndex("HouseId");
 
@@ -85,32 +81,31 @@ namespace Db.Migrations
                     b.ToTable("Houses");
                 });
 
-            modelBuilder.Entity("Domain.Network.FullAddress", b =>
+            modelBuilder.Entity("Domain.Network.GreyAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Grey");
+                    b.Property<string>("Address");
+
+                    b.Property<int?>("ClientId");
 
                     b.Property<int?>("SubnetId");
 
-                    b.Property<int?>("WhiteId");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
 
                     b.HasIndex("SubnetId");
 
-                    b.HasIndex("WhiteId");
-
-                    b.ToTable("FullAddress");
+                    b.ToTable("GreyAddresses");
                 });
 
             modelBuilder.Entity("Domain.Network.Subnet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address");
 
                     b.Property<string>("Gateway");
 
@@ -128,9 +123,27 @@ namespace Db.Migrations
 
                     b.Property<string>("Address");
 
+                    b.Property<int>("GrayAddressId");
+
                     b.HasKey("Id");
 
-                    b.ToTable("WhiteAddress");
+                    b.HasIndex("GrayAddressId")
+                        .IsUnique();
+
+                    b.ToTable("WhiteAddresses");
+                });
+
+            modelBuilder.Entity("Domain.Tariff.JoinClientsTariffs", b =>
+                {
+                    b.Property<int>("ClientId");
+
+                    b.Property<int>("TariffId");
+
+                    b.HasKey("ClientId", "TariffId");
+
+                    b.HasIndex("TariffId");
+
+                    b.ToTable("JoinClientsTariffs");
                 });
 
             modelBuilder.Entity("Domain.Tariff.Tariff", b =>
@@ -177,15 +190,9 @@ namespace Db.Migrations
 
             modelBuilder.Entity("Domain.Client.Client", b =>
                 {
-                    b.HasOne("Domain.Network.FullAddress", "FullAddress")
-                        .WithMany()
-                        .HasForeignKey("FullAddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Domain.House.House", "House")
                         .WithMany()
-                        .HasForeignKey("HouseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("HouseId");
                 });
 
             modelBuilder.Entity("Domain.House.House", b =>
@@ -195,15 +202,36 @@ namespace Db.Migrations
                         .HasForeignKey("SubnetId");
                 });
 
-            modelBuilder.Entity("Domain.Network.FullAddress", b =>
+            modelBuilder.Entity("Domain.Network.GreyAddress", b =>
                 {
-                    b.HasOne("Domain.Network.Subnet", "Subnet")
-                        .WithMany()
-                        .HasForeignKey("SubnetId");
+                    b.HasOne("Domain.Client.Client", "Client")
+                        .WithOne("GreyAddress")
+                        .HasForeignKey("Domain.Network.GreyAddress", "ClientId");
 
-                    b.HasOne("Domain.Network.WhiteAddress", "White")
-                        .WithMany()
-                        .HasForeignKey("WhiteId");
+                    b.HasOne("Domain.Network.Subnet")
+                        .WithMany("Addresses")
+                        .HasForeignKey("SubnetId");
+                });
+
+            modelBuilder.Entity("Domain.Network.WhiteAddress", b =>
+                {
+                    b.HasOne("Domain.Network.GreyAddress", "GrayAddress")
+                        .WithOne("White")
+                        .HasForeignKey("Domain.Network.WhiteAddress", "GrayAddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Tariff.JoinClientsTariffs", b =>
+                {
+                    b.HasOne("Domain.Client.Client", "Client")
+                        .WithMany("JoinTariffs")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Domain.Tariff.Tariff", "Tariff")
+                        .WithMany("JoinClients")
+                        .HasForeignKey("TariffId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

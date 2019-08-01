@@ -37,6 +37,9 @@ namespace LightBilling
             
             services.AddScoped<ISubnetService, SubnetService>();
             services.AddScoped<SubnetMapper>();
+            
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ClientMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -1,13 +1,6 @@
-using System.Collections.Generic;
-using Domain.Network;
-using Domain.Tariff;
-
-namespace Domain.Client
+namespace Api.Client
 {
-    /// <summary>
-    /// Сущность абонента. Стринги в большинстве полей, т.к. это Лайт биллинг)
-    /// </summary>
-    public class Client
+    public class ClientFilter
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -28,10 +21,6 @@ namespace Domain.Client
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<JoinClientsTariffs> JoinTariffs { get; set; }
-
-        public virtual House.House House { get; set; }
-
-        public virtual GreyAddress GreyAddress { get; set; }
+        public int HouseId { get; set; }
     }
 }

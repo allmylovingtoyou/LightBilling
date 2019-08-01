@@ -14,8 +14,11 @@ namespace Db
         public DbSet<SystemUser> SystemUsers { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<House> Houses { get; set; }
-        public DbSet<Subnet> Subnets { get; set; }
         public DbSet<Tariff> Tariffs { get; set; }
+
+        public DbSet<Subnet> Subnets { get; set; }
+        public DbSet<GreyAddress> GreyAddresses { get; set; }
+        public DbSet<WhiteAddress> WhiteAddresses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -25,13 +28,28 @@ namespace Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-//            modelBuilder.Entity<Subnet>()
-//                .HasMany(x => x.Houses)
-//                .WithOne();
-//            modelBuilder.Entity<Subnet>()
-//                .HasOne(x => x.House)
-//                .WithOne(y => y.Subnet)
-//                .HasForeignKey<House>(x => x.SubnetId);
+            modelBuilder.Entity<GreyAddress>()
+                .HasOne(g => g.White)
+                .WithOne(w => w.GrayAddress)
+                .HasForeignKey<WhiteAddress>(k => k.GrayAddressId);
+
+            modelBuilder.Entity<Client>()
+                .HasOne(g => g.GreyAddress)
+                .WithOne(w => w.Client)
+                .HasForeignKey<GreyAddress>(k => k.ClientId);
+
+            modelBuilder.Entity<JoinClientsTariffs>()
+                .HasKey(pt => new {pt.ClientId, pt.TariffId});
+
+            modelBuilder.Entity<JoinClientsTariffs>()
+                .HasOne(pt => pt.Client)
+                .WithMany(p => p.JoinTariffs)
+                .HasForeignKey(pt => pt.ClientId);
+
+            modelBuilder.Entity<JoinClientsTariffs>()
+                .HasOne(pt => pt.Tariff)
+                .WithMany(p => p.JoinClients)
+                .HasForeignKey(pt => pt.TariffId);
         }
     }
 }
