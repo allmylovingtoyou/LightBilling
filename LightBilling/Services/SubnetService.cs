@@ -22,23 +22,23 @@ namespace LightBilling.Services
             _mapper = mapper;
         }
 
-        public Task<List<SubnetDto>> GetFreeSubnets()
+        public Task<List<SubnetInfoDto>> GetFreeSubnets()
         {
             using (var db = new ApplicationDbContext())
             {
                 var result = db.Subnets.Where(x => !x.Houses.Any());
 
-                return Task.FromResult(_mapper.ToDto(result));
+                return Task.FromResult(_mapper.ToInfoDto(result));
             }
         }
         
-        public Task<List<SubnetDto>> GetAllSubnets()
+        public Task<List<SubnetInfoDto>> GetAllSubnets()
         {
             using (var db = new ApplicationDbContext())
             {
                 var result = db.Subnets;
 
-                return Task.FromResult(_mapper.ToDto(result));
+                return Task.FromResult(_mapper.ToInfoDto(result));
             }
         }
     }

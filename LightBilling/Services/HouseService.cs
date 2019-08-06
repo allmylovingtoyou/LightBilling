@@ -184,28 +184,28 @@ namespace LightBilling.Services
                 return dbResult;
             }
 
-            if (sort.FieldName.Equals(nameof(HouseDto.Address).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(House.Address).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.Address)
                     : dbResult.OrderByDescending(x => x.Address);
             }
 
-            if (sort.FieldName.Equals(nameof(HouseDto.AdditionalNumber).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(House.AdditionalNumber).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.AdditionalNumber)
                     : dbResult.OrderByDescending(x => x.AdditionalNumber);
             }
 
-            if (sort.FieldName.Equals(nameof(HouseDto.Number).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(House.Number).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.Number)
                     : dbResult.OrderByDescending(x => x.Number);
             }
 
-            if (sort.FieldName.Equals(nameof(HouseDto.Comment).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(House.Comment).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.Comment)

@@ -5,6 +5,7 @@ namespace Domain.Network
     public class Subnet
     {
         public int Id { get; set; }
+        public string Net { get; set; }
         public int Mask { get; set; }
         public string Gateway { get; set;}
         

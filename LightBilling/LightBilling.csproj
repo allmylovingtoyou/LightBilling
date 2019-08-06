@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj" />
     <ProjectReference Include="..\Db\Db.csproj" />
+    <ProjectReference Include="..\DevelopData\DevelopData.csproj" />
   </ItemGroup>
 
 </Project>

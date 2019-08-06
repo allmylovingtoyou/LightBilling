@@ -111,6 +111,8 @@ namespace Db.Migrations
 
                     b.Property<int>("Mask");
 
+                    b.Property<string>("Net");
+
                     b.HasKey("Id");
 
                     b.ToTable("Subnets");

@@ -9,8 +9,8 @@ namespace LightBilling.Interfaces
 {
     public interface ISubnetService
     {
-        Task<List<SubnetDto>> GetFreeSubnets();
+        Task<List<SubnetInfoDto>> GetFreeSubnets();
 
-        Task<List<SubnetDto>> GetAllSubnets();
+        Task<List<SubnetInfoDto>> GetAllSubnets();
     }
 }

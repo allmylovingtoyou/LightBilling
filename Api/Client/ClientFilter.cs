@@ -5,16 +5,11 @@ namespace Api.Client
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Patronymic { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
 
         public string HwIpAddress { get; set; }
         public string HwPort { get; set; }
 
         public string Comment { get; set; }
-
-        public double Balance { get; set; }
 
         public string Status { get; set; }
 

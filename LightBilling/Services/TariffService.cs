@@ -153,7 +153,7 @@ namespace LightBilling.Services
                 return dbResult;
             }
 
-            if (sort.FieldName.Equals(nameof(TariffDto.Name).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(Tariff.Name).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.Name)

@@ -19,6 +19,8 @@ namespace Db
         public DbSet<Subnet> Subnets { get; set; }
         public DbSet<GreyAddress> GreyAddresses { get; set; }
         public DbSet<WhiteAddress> WhiteAddresses { get; set; }
+        
+        public DbSet<JoinClientsTariffs> JoinClientsTariffs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

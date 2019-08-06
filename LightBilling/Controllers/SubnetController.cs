@@ -22,28 +22,6 @@ namespace LightBilling.Controllers
             _service = service;
         }
 
-//        [HttpGet]
-//        public async Task<JsonResult> Generate(int count)
-//        {
-//            var random = new Random();
-//            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//
-//            for (int i = 0; i < count; i++)
-//            {
-//                await _service.Create(new HouseDto
-//                {
-//                    Number = random.Next(1, 100).ToString(),
-//                    Address = new string(Enumerable.Repeat(chars, random.Next(2, 10))
-//                        .Select(s => s[random.Next(s.Length)]).ToArray()),
-//                    Comment = new string(Enumerable.Repeat(chars, random.Next(1, 5))
-//                        .Select(s => s[random.Next(s.Length)]).ToArray()),
-//                    AdditionalNumber = random.Next(10).ToString()
-//                });
-//            }
-//
-//            return Json(count);
-//        }
-
         [HttpPost]
         public async Task<JsonResult> Free([FromBody] object any)
         {

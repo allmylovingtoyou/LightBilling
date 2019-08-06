@@ -17,7 +17,7 @@ namespace LightBilling.Interfaces
         /// <returns></returns>
         Task<ClientDto> Create(ClientDto request);
 
-        Task<PageResponse<ClientDto>> GetPage(PageRequest<ClientFilter> request);
+        Task<PageResponse<ClientInfoDto>> GetPage(PageRequest<ClientFilter> request);
 
         Task<ClientDto> Update(ClientUpdateDto request);
 
