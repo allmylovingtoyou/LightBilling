@@ -12,7 +12,7 @@ namespace LightBilling.Interfaces
         Task<HouseDto> ById(int id);
         Task<HouseDto> Create(HouseDto request);
 
-        Task<PageResponse<HouseDto>> GetPage(PageRequest<HouseFilter> request);
+        Task<PageResponse<HouseInfoDto>> GetPage(PageRequest<HouseFilter> request);
 
         Task<HouseDto> Update(HouseUpdateDto request);
 

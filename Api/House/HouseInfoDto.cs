@@ -1,4 +1,6 @@
+using System;
 using Api.Network;
+using Newtonsoft.Json;
 
 namespace Api.House
 {
@@ -14,5 +16,19 @@ namespace Api.House
         public string Comment { get; set; }
 
         public string Porch { get; set; }
+
+        [JsonIgnore]
+        public SubnetDto Subnet { get; set; }
+        public string SubnetString => getSubnetString(Subnet);
+
+        private String getSubnetString(SubnetDto subnetDto)
+        {
+            if (subnetDto == null)
+            {
+                return null;
+            }
+
+            return subnetDto.Net + "/" + subnetDto.Mask;
+        }
     }
 }
