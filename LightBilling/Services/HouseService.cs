@@ -45,7 +45,7 @@ namespace LightBilling.Services
         }
 
         /// <inheritdoc />
-        public Task<PageResponse<HouseDto>> GetPage(PageRequest<HouseFilter> request)
+        public Task<PageResponse<HouseInfoDto>> GetPage(PageRequest<HouseFilter> request)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -55,13 +55,12 @@ namespace LightBilling.Services
 
                 dbResult = Sort(request, dbResult);
 
-
                 var total = dbResult.Count();
                 dbResult = dbResult.Skip(request.Skip).Take(request.Limit);
 
-                var result = new PageResponse<HouseDto>
+                var result = new PageResponse<HouseInfoDto>
                 {
-                    Data = _mapper.ToDto(dbResult),
+                    Data = _mapper.ToInfoDto(dbResult),
                     Total = total
                 };
 
@@ -90,7 +89,9 @@ namespace LightBilling.Services
 
             using (var db = new ApplicationDbContext())
             {
-                var houses = db.Houses.Include(h => h.Subnet).AsQueryable();
+                var houses = db
+                    .Houses.Include(h => h.Subnet)
+                    .AsQueryable();
 
                 var toUpdate = houses.FirstOrDefault(h => h.Id == request.Id);
 
@@ -184,28 +185,28 @@ namespace LightBilling.Services
                 return dbResult;
             }
 
-            if (sort.FieldName.Equals(nameof(HouseDto.Address).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(House.Address).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.Address)
                     : dbResult.OrderByDescending(x => x.Address);
             }
 
-            if (sort.FieldName.Equals(nameof(HouseDto.AdditionalNumber).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(House.AdditionalNumber).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.AdditionalNumber)
                     : dbResult.OrderByDescending(x => x.AdditionalNumber);
             }
 
-            if (sort.FieldName.Equals(nameof(HouseDto.Number).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(House.Number).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.Number)
                     : dbResult.OrderByDescending(x => x.Number);
             }
 
-            if (sort.FieldName.Equals(nameof(HouseDto.Comment).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(House.Comment).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
                     ? dbResult.OrderBy(x => x.Comment)

@@ -24,8 +24,9 @@ namespace LightBilling
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
-            services.AddSingleton(mapperConfiguration.CreateMapper());
+            var autoMapper = CreateAutoMapper();
+
+            services.AddSingleton(autoMapper);
 
             services.AddScoped<ISystemUserService, SystemUserService>();
             
@@ -37,6 +38,9 @@ namespace LightBilling
             
             services.AddScoped<ISubnetService, SubnetService>();
             services.AddScoped<SubnetMapper>();
+            
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ClientMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -44,11 +48,17 @@ namespace LightBilling
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMapper autoMapper)
         {
-            autoMapper.ConfigurationProvider.AssertConfigurationIsValid();
-
             app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
+        }
+        
+        private static IMapper CreateAutoMapper()
+        {
+            var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
+            var autoMapper = mapperConfiguration.CreateMapper();
+            autoMapper.ConfigurationProvider.AssertConfigurationIsValid();
+            return autoMapper;
         }
     }
 }

@@ -266,44 +266,6 @@
 					"response": []
 				},
 				{
-					"name": "Generate House",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
-						},
-						"url": {
-							"raw": "{{apiUrl}}/api/House/Generate?count=500",
-							"host": [
-								"{{apiUrl}}"
-							],
-							"path": [
-								"api",
-								"House",
-								"Generate"
-							],
-							"query": [
-								{
-									"key": "count",
-									"value": "500"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Update House",
 					"request": {
 						"method": "PATCH",
@@ -391,7 +353,7 @@
 					"response": []
 				},
 				{
-					"name": "ById House Copy",
+					"name": "Generate House",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -409,19 +371,19 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/House/House?id=1",
+							"raw": "{{apiUrl}}/api/House/Generate?count=500",
 							"host": [
 								"{{apiUrl}}"
 							],
 							"path": [
 								"api",
 								"House",
-								"House"
+								"Generate"
 							],
 							"query": [
 								{
-									"key": "id",
-									"value": "1"
+									"key": "count",
+									"value": "500"
 								}
 							]
 						}
@@ -582,6 +544,165 @@
 								"api",
 								"Tariff",
 								"Tariff"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Add Client",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Name\"\n\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Client/Client",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ById Client",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Client/Client?id=1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Client"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"xyeva\",\n    \"comment\": \"xyent\",\n    \"isPeriodic\": true,\n    \"type\": 2,\n    \"typeString\": \"Any\",\n    \"inputRate\": 513,\n    \"outputRate\": 512\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Client/Client",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPage Client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"type\" : 2\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Client/Client",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 1\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Client/Client",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Client"
 							]
 						}
 					},

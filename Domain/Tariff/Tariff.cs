@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Domain.Tariff
 {
     public class Tariff
@@ -17,5 +19,7 @@ namespace Domain.Tariff
         public int OutputRate { get; set; }
         
         public double Cost { get; set; } = 0;
+        
+        public virtual ICollection<JoinClientsTariffs> JoinClients { get; set; }
     }
 }

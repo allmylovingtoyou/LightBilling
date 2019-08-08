@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using Api.House;
 using Api.Network;
+using Api.Tariff;
 
 namespace Api.Client
 {
     public class ClientDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
@@ -27,7 +29,8 @@ namespace Api.Client
         public int HouseId { get; set; }
         public HouseDto House { get; set; }
 
-        public int FullAddressId { get; set; }
-        public FullAddressDto FullNetworkAddress { get; set; }
+        public GreyAddressDto GreyAddress { get; set; }
+
+        public virtual List<TariffDto> Tariffs { get; set; }
     }
 }

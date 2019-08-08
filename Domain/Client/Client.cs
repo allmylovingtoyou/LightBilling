@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Domain.Network;
+using Domain.Tariff;
 
 namespace Domain.Client
 {
@@ -26,10 +28,10 @@ namespace Domain.Client
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
 
-        public int HouseId { get; set; }
+        public virtual ICollection<JoinClientsTariffs> JoinTariffs { get; set; }
+
         public virtual House.House House { get; set; }
 
-        public int FullAddressId { get; set; }
-        public virtual FullAddress FullAddress { get; set; }
+        public virtual GreyAddress GreyAddress { get; set; }
     }
 }
