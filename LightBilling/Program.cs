@@ -26,9 +26,10 @@ namespace LightBilling
             }
             
             DevelopData.Tools.Truncate();
-            var houses = DevelopData.Entity.HousesDevData.Create();
-            var subnets = DevelopData.Entity.NetworkDevData.Create();
-            var tariffs = DevelopData.Entity.TariffDevData.Create();
+            DevelopData.Entity.HousesDevData.Create();
+            DevelopData.Entity.NetworkDevData.Create();
+            DevelopData.Entity.TariffDevData.Create();
+            DevelopData.Entity.ClientDevData.Create();
             
             host.Run();
         }

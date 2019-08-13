@@ -59,8 +59,8 @@ namespace LightBilling
                     Message = $"Not found {exception.Message}";
                 }
 
-                Trace = exception.StackTrace.Substring(0, 80);
-//s                Trace = exception.StackTrace;
+//                Trace = exception.StackTrace.Substring(0, 80);
+                Trace = exception.StackTrace;
             }
 
             public string Type { get; set; }

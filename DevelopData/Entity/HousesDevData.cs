@@ -7,12 +7,11 @@ namespace DevelopData.Entity
 {
     public static class HousesDevData
     {
-        
-        public static List<House> Create()
+        public static readonly List<House> Houses = new List<House>();
+
+        public static void Create()
         {
-            var houses = new List<House>();
-            
-            houses.Add(new House
+            Houses.Add(new House
             {
                 Address = "Дровосека",
                 Number = "15",
@@ -25,31 +24,27 @@ namespace DevelopData.Entity
                     Gateway = "192.168.1.1"
                 }
             });
-            
-            houses.Add(new House
+
+            Houses.Add(new House
             {
                 Address = "Девопсическа",
                 Number = "66"
             });
-            
+
             for (int i = 0; i < 20; i++)
             {
-                houses.Add(new House
+                Houses.Add(new House
                 {
                     Address = "Рандома",
                     Number = i.ToString()
                 });
-
             }
-            
+
             using (var db = new ApplicationDbContext())
             {
-                db.Houses.AddRange(houses);
+                db.Houses.AddRange(Houses);
                 db.SaveChanges();
             }
-
-            return houses;
         }
-
     }
 }

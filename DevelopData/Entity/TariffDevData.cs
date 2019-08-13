@@ -9,11 +9,11 @@ namespace DevelopData.Entity
     public static class TariffDevData
     {
         
+        public static readonly List<Tariff> DevDataTariffs = new List<Tariff>();
+        
         public static List<Tariff> Create()
         {
-            var tariffs = new List<Tariff>();
-            
-            tariffs.Add(new Tariff
+            DevDataTariffs.Add(new Tariff
             {
                 Name = "Улет 100500",
                 IsPeriodic = true,
@@ -23,7 +23,7 @@ namespace DevelopData.Entity
                 Type = TariffType.Tariff
             });
             
-            tariffs.Add(new Tariff
+            DevDataTariffs.Add(new Tariff
             {
                 Name = "Белый адрес",
                 IsPeriodic = true,
@@ -31,7 +31,7 @@ namespace DevelopData.Entity
                 Type = TariffType.Any
             });
             
-            tariffs.Add(new Tariff
+            DevDataTariffs.Add(new Tariff
             {
                 Name = "Подключение инета",
                 IsPeriodic = false,
@@ -42,7 +42,7 @@ namespace DevelopData.Entity
 
             for (int i = 0; i < 20; i++)
             {
-                tariffs.Add(new Tariff
+                DevDataTariffs.Add(new Tariff
                 {
                     Name = "Рандом " + i,
                     IsPeriodic = true,
@@ -55,11 +55,11 @@ namespace DevelopData.Entity
             
             using (var db = new ApplicationDbContext())
             {
-                db.Tariffs.AddRange(tariffs);
+                db.Tariffs.AddRange(DevDataTariffs);
                 db.SaveChanges();
             }
 
-            return tariffs;
+            return DevDataTariffs;
         }
 
     }

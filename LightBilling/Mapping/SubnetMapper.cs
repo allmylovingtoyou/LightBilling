@@ -6,6 +6,7 @@ using Api.Network;
 using AutoMapper;
 using Domain.House;
 using Domain.Network;
+using LightBilling.Mapping.Base;
 
 namespace LightBilling.Mapping
 {

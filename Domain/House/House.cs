@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Domain.Base;
 using Domain.Network;
 
 namespace Domain.House
@@ -6,7 +7,7 @@ namespace Domain.House
     /// <summary>
     /// Сущность дома
     /// </summary>
-    public class House
+    public class House : IBaseEntity
     {
         public int Id { get; set; }
         public string Address { get; set; }

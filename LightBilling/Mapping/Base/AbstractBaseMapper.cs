@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 
-namespace LightBilling.Mapping
+namespace LightBilling.Mapping.Base
 {
     public abstract class AbstractBaseMapper<TE,TD>
     {

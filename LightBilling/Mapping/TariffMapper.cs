@@ -3,6 +3,7 @@ using Api.Tariff;
 using AutoMapper;
 using Domain.House;
 using Domain.Tariff;
+using LightBilling.Mapping.Base;
 
 namespace LightBilling.Mapping
 {

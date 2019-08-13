@@ -10,16 +10,19 @@ using Domain.Client;
 using LightBilling.Extensions;
 using LightBilling.Interfaces;
 using LightBilling.Mapping;
+using LightBilling.Repositories;
 
 namespace LightBilling.Services
 {
     public class ClientService : IClientService
     {
         private readonly ClientMapper _mapper;
+        private readonly ClientRepository _repository;
 
-        public ClientService(ClientMapper mapper)
+        public ClientService(ClientMapper mapper, ClientRepository repository)
         {
             _mapper = mapper;
+            _repository = repository;
         }
 
         public async Task<ClientDto> ById(int id)
@@ -42,13 +45,9 @@ namespace LightBilling.Services
         {
             var domain = _mapper.ToEntity(request);
 
-            using (var db = new ApplicationDbContext())
-            {
-                var result = await db.Clients.AddAsync(domain);
-                await db.SaveChangesAsync();
+            var result = await _repository.Add(domain);
 
-                return _mapper.ToDto(result.Entity);
-            }
+            return _mapper.ToDto(result);
         }
 
         public Task<PageResponse<ClientInfoDto>> GetPage(PageRequest<ClientFilter> request)
@@ -63,11 +62,11 @@ namespace LightBilling.Services
 
 
                 var total = dbResult.Count();
-                dbResult = dbResult.Skip(request.Skip).Take(request.Limit);
+                var r = dbResult.Skip(request.Skip).Take(request.Limit).ToList();
 
                 var result = new PageResponse<ClientInfoDto>
                 {
-                    Data = _mapper.ToPageDto(dbResult),
+                    Data = _mapper.ToInfoDto(r),
                     Total = total
                 };
 
@@ -84,7 +83,19 @@ namespace LightBilling.Services
         {
             throw new System.NotImplementedException();
         }
-        
+
+        public async Task<double> UpdateBalance(double newBalance, int clientId)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var client = await db.Clients.FindAsync(clientId);
+                client.Balance = newBalance;
+                db.Clients.Update(client);
+                await db.SaveChangesAsync();
+                return client.Balance;
+            }
+        }
+
         private static IQueryable<Client> Filter(PageRequest<ClientFilter> request, IQueryable<Client> dbResultMain)
         {
             var filter = request.Filter;
@@ -117,6 +128,5 @@ namespace LightBilling.Services
 
             return dbResult;
         }
-        
     }
 }

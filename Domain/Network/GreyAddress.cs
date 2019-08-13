@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Base;
 
 namespace Domain.Network
 {
-    public class GreyAddress
+    public class GreyAddress : IBaseEntity
     {
         public int Id { get; set; }
         public string Address { get; set; }

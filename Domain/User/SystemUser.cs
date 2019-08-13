@@ -1,6 +1,8 @@
-﻿namespace Domain.User
+﻿using Domain.Base;
+
+namespace Domain.User
 {
-    public class SystemUser
+    public class SystemUser : IBaseEntity
     {
         public int Id { get; set; }
         public string Login { get; set; }

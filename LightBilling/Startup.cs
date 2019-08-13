@@ -2,6 +2,8 @@
 using Db;
 using LightBilling.Interfaces;
 using LightBilling.Mapping;
+using LightBilling.Mapping.Base;
+using LightBilling.Repositories;
 using LightBilling.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,18 +31,22 @@ namespace LightBilling
             services.AddSingleton(autoMapper);
 
             services.AddScoped<ISystemUserService, SystemUserService>();
-            
+
             services.AddScoped<IHouseService, HouseService>();
             services.AddScoped<HouseMapper>();
-            
+
             services.AddScoped<ITariffService, TariffService>();
             services.AddScoped<TariffMapper>();
-            
+
             services.AddScoped<ISubnetService, SubnetService>();
             services.AddScoped<SubnetMapper>();
-            
+
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ClientMapper>();
+            services.AddScoped<ClientRepository>();
+
+            services.AddScoped<PaymentRepository>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -52,7 +58,7 @@ namespace LightBilling
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }
-        
+
         private static IMapper CreateAutoMapper()
         {
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
