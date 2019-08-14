@@ -26,8 +26,8 @@ namespace LightBilling
             }
             
             DevelopData.Tools.Truncate();
-            DevelopData.Entity.HousesDevData.Create();
             DevelopData.Entity.NetworkDevData.Create();
+            DevelopData.Entity.HousesDevData.Create();
             DevelopData.Entity.TariffDevData.Create();
             DevelopData.Entity.ClientDevData.Create();
             

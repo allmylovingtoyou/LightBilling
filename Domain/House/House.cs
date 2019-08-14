@@ -17,6 +17,7 @@ namespace Domain.House
 
         public string Porch { get; set; }
 
+        public int? SubnetId { get; set; }
         public virtual Subnet Subnet { get; set; }
 
         //public List<Client.Client> Clients { get; set; }

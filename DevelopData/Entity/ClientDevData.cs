@@ -20,7 +20,7 @@ namespace DevelopData.Entity
             {
                 Name = "Вася",
                 Surname = "Петров",
-                Patronymic = "Сысоевич",
+                MiddleName = "Сысоевич",
             });
 
             var tariff1 = TariffDevData.DevDataTariffs.First();

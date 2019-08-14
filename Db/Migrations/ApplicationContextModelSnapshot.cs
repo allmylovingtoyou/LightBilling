@@ -40,11 +40,11 @@ namespace Db.Migrations
 
                     b.Property<string>("Login");
 
+                    b.Property<string>("MiddleName");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Password");
-
-                    b.Property<string>("Patronymic");
 
                     b.Property<string>("Status");
 

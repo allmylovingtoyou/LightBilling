@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Db;
 using Domain.House;
 using Domain.Network;
@@ -17,12 +18,7 @@ namespace DevelopData.Entity
                 Number = "15",
                 Porch = "1-10",
                 Comment = "Наркоманы в подъезде",
-                Subnet = new Subnet
-                {
-                    Net = "192.168.1.0",
-                    Mask = 24,
-                    Gateway = "192.168.1.1"
-                }
+                SubnetId = NetworkDevData.Subnets.First().Id
             });
 
             Houses.Add(new House
@@ -31,12 +27,13 @@ namespace DevelopData.Entity
                 Number = "66"
             });
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 11; i++)
             {
                 Houses.Add(new House
                 {
                     Address = "Рандома",
-                    Number = i.ToString()
+                    Number = i.ToString(),
+                    SubnetId = NetworkDevData.Subnets[i + 1].Id
                 });
             }
 
