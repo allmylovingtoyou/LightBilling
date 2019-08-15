@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Domain.Base;
 
 namespace Domain.Tariff
 {
-    public class Tariff
+    public class Tariff : IBaseEntity
     {
         public int Id { get; set; }
 

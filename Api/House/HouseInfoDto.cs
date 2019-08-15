@@ -19,9 +19,9 @@ namespace Api.House
 
         [JsonIgnore]
         public SubnetDto Subnet { get; set; }
-        public string SubnetString => getSubnetString(Subnet);
+        public string SubnetString => GetSubnetString(Subnet);
 
-        private String getSubnetString(SubnetDto subnetDto)
+        private static string GetSubnetString(SubnetDto subnetDto)
         {
             if (subnetDto == null)
             {

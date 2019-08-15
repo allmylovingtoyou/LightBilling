@@ -3,6 +3,7 @@ using System.Linq;
 using Api.House;
 using AutoMapper;
 using Domain.House;
+using LightBilling.Mapping.Base;
 
 namespace LightBilling.Mapping
 {

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Domain.Base;
 
 namespace Domain.Network
 {
-    public class Subnet
+    public class Subnet : IBaseEntity
     {
         public int Id { get; set; }
         public string Net { get; set; }

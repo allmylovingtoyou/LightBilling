@@ -150,27 +150,26 @@ namespace LightBilling.Services
         private static IQueryable<House> Filter(PageRequest<HouseFilter> request, IQueryable<House> dbResultMain)
         {
             var filter = request.Filter;
-            if (filter != null)
+            if (filter == null) return dbResultMain;
+            
+            if (filter.Address != null)
             {
-                if (filter.Address != null)
-                {
-                    dbResultMain = dbResultMain.Where(x => x.Address.Contains(filter.Address));
-                }
+                dbResultMain = dbResultMain.Where(x => x.Address.Contains(filter.Address));
+            }
 
-                if (filter.Number != null)
-                {
-                    dbResultMain = dbResultMain.Where(x => x.Number.Contains(filter.Number));
-                }
+            if (filter.Number != null)
+            {
+                dbResultMain = dbResultMain.Where(x => x.Number.Contains(filter.Number));
+            }
 
-                if (filter.AdditionalNumber != null)
-                {
-                    dbResultMain = dbResultMain.Where(x => x.AdditionalNumber.Contains(filter.AdditionalNumber));
-                }
+            if (filter.AdditionalNumber != null)
+            {
+                dbResultMain = dbResultMain.Where(x => x.AdditionalNumber.Contains(filter.AdditionalNumber));
+            }
 
-                if (filter.Comment != null)
-                {
-                    dbResultMain = dbResultMain.Where(x => x.Comment.Contains(filter.Comment));
-                }
+            if (filter.Comment != null)
+            {
+                dbResultMain = dbResultMain.Where(x => x.Comment.Contains(filter.Comment));
             }
 
             return dbResultMain;

@@ -15,8 +15,6 @@ namespace Api.House
         
         public string Porch { get; set; }
 
-        //public List<Client> Clients { get; set; }
-
         public SubnetDto Subnet { get; set; }
     }
 }

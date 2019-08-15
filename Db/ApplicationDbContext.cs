@@ -3,6 +3,7 @@ using Domain;
 using Domain.Client;
 using Domain.House;
 using Domain.Network;
+using Domain.Payment;
 using Domain.Tariff;
 using Domain.User;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace Db
         public DbSet<Subnet> Subnets { get; set; }
         public DbSet<GreyAddress> GreyAddresses { get; set; }
         public DbSet<WhiteAddress> WhiteAddresses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         
         public DbSet<JoinClientsTariffs> JoinClientsTariffs { get; set; }
 
@@ -39,7 +41,7 @@ namespace Db
                 .HasOne(g => g.GreyAddress)
                 .WithOne(w => w.Client)
                 .HasForeignKey<GreyAddress>(k => k.ClientId);
-
+            
             modelBuilder.Entity<JoinClientsTariffs>()
                 .HasKey(pt => new {pt.ClientId, pt.TariffId});
 

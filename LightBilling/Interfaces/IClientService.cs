@@ -22,5 +22,7 @@ namespace LightBilling.Interfaces
         Task<ClientDto> Update(ClientUpdateDto request);
 
         Task<ClientDto> Delete(int id);
+
+        Task<double> UpdateBalance(double newBalance, int clientId);
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Domain.Base;
 using Domain.Network;
 using Domain.Tariff;
 
@@ -7,12 +8,12 @@ namespace Domain.Client
     /// <summary>
     /// Сущность абонента. Стринги в большинстве полей, т.к. это Лайт биллинг)
     /// </summary>
-    public class Client
+    public class Client : IBaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Patronymic { get; set; }
+        public string MiddleName { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
 
@@ -23,6 +24,8 @@ namespace Domain.Client
 
         public double Balance { get; set; }
 
+        public double Credit { get; set; }
+
         public string Status { get; set; }
 
         public bool IsActive { get; set; }
@@ -30,6 +33,7 @@ namespace Domain.Client
 
         public virtual ICollection<JoinClientsTariffs> JoinTariffs { get; set; }
 
+        public int HouseId { get; set; }
         public virtual House.House House { get; set; }
 
         public virtual GreyAddress GreyAddress { get; set; }

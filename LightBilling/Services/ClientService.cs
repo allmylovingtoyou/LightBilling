@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Client;
@@ -5,21 +6,27 @@ using Api.House;
 using Api.Requests;
 using Api.Requests.Extensions;
 using Api.Responses;
+using Castle.Core.Internal;
 using Db;
 using Domain.Client;
+using Domain.Tariff;
 using LightBilling.Extensions;
 using LightBilling.Interfaces;
 using LightBilling.Mapping;
+using LightBilling.Repositories;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace LightBilling.Services
 {
     public class ClientService : IClientService
     {
         private readonly ClientMapper _mapper;
+        private readonly ClientRepository _repository;
 
-        public ClientService(ClientMapper mapper)
+        public ClientService(ClientMapper mapper, ClientRepository repository)
         {
             _mapper = mapper;
+            _repository = repository;
         }
 
         public async Task<ClientDto> ById(int id)
@@ -40,14 +47,24 @@ namespace LightBilling.Services
         /// <inheritdoc />
         public async Task<ClientDto> Create(ClientDto request)
         {
-            var domain = _mapper.ToEntity(request);
-
             using (var db = new ApplicationDbContext())
             {
-                var result = await db.Clients.AddAsync(domain);
+                var client = _mapper.ToEntity(request);
+
+
+                if (!request.TariffIds.IsNullOrEmpty())
+                {
+                    var joins = client.JoinTariffs = new List<JoinClientsTariffs>();
+                    foreach (var tariffId in request.TariffIds)
+                    {
+                        joins.Add(new JoinClientsTariffs {Client = client, TariffId = tariffId});
+                    }
+                }
+
+                var result = await db.Clients.AddAsync(client);
                 await db.SaveChangesAsync();
 
-                return _mapper.ToDto(result.Entity);
+                return await ById(result.Entity.Id);
             }
         }
 
@@ -63,11 +80,11 @@ namespace LightBilling.Services
 
 
                 var total = dbResult.Count();
-                dbResult = dbResult.Skip(request.Skip).Take(request.Limit);
+                var r = dbResult.Skip(request.Skip).Take(request.Limit).ToList();
 
                 var result = new PageResponse<ClientInfoDto>
                 {
-                    Data = _mapper.ToPageDto(dbResult),
+                    Data = _mapper.ToInfoDto(r),
                     Total = total
                 };
 
@@ -84,7 +101,19 @@ namespace LightBilling.Services
         {
             throw new System.NotImplementedException();
         }
-        
+
+        public async Task<double> UpdateBalance(double newBalance, int clientId)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var client = await db.Clients.FindAsync(clientId);
+                client.Balance = newBalance;
+                db.Clients.Update(client);
+                await db.SaveChangesAsync();
+                return client.Balance;
+            }
+        }
+
         private static IQueryable<Client> Filter(PageRequest<ClientFilter> request, IQueryable<Client> dbResultMain)
         {
             var filter = request.Filter;
@@ -117,6 +146,5 @@ namespace LightBilling.Services
 
             return dbResult;
         }
-        
     }
 }

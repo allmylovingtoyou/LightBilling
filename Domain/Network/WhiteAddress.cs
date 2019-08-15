@@ -1,6 +1,8 @@
+using Domain.Base;
+
 namespace Domain.Network
 {
-    public class WhiteAddress
+    public class WhiteAddress : IBaseEntity
     {
         public int Id { get; set; }
         public int GrayAddressId { get; set; }

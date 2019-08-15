@@ -7,11 +7,12 @@ namespace DevelopData.Entity
 {
     public static class NetworkDevData
     {
-        public static List<Subnet> Create()
+        
+        public static readonly List<Subnet> Subnets = new List<Subnet>();
+        
+        public static void Create()
         {
-            var subnets = new List<Subnet>();
-
-            for (int i = 10; i < 100; i++)
+            for (int i = 10; i < 40; i++)
             {
                 var subnet = new Subnet
                 {
@@ -34,16 +35,14 @@ namespace DevelopData.Entity
 
                 subnet.Addresses = greys;
 
-                subnets.Add(subnet);
+                Subnets.Add(subnet);
             }
 
             using (var db = new ApplicationDbContext())
             {
-                db.Subnets.AddRange(subnets);
+                db.Subnets.AddRange(Subnets);
                 db.SaveChanges();
             }
-
-            return subnets;
         }
     }
 }

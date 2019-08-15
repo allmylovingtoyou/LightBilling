@@ -5,14 +5,13 @@ using Api.Network;
 using Api.Tariff;
 using Api.User;
 using AutoMapper;
-using Domain;
 using Domain.Client;
 using Domain.House;
 using Domain.Network;
 using Domain.Tariff;
 using Domain.User;
 
-namespace LightBilling.Mapping
+namespace LightBilling.Mapping.Base
 {
     /// <summary>
     /// Настройка автомапера для маппингов элементарных сущностей.
@@ -27,7 +26,6 @@ namespace LightBilling.Mapping
             CreateMap<House, HouseDto>();
             CreateMap<HouseDto, House>();
             CreateMap<House, HouseInfoDto>();
-//                .ForMember(x => x.Clients, opt => opt.Ignore());
 
             CreateMap<Subnet, SubnetDto>();
             CreateMap<SubnetDto, Subnet>()
@@ -37,11 +35,16 @@ namespace LightBilling.Mapping
             CreateMap<Tariff, TariffDto>();
             CreateMap<TariffDto, Tariff>()
                 .ForMember(x => x.JoinClients, opt => opt.Ignore());
-
             CreateMap<Client, ClientDto>()
-                .ForMember(x => x.Tariffs, opt => opt.MapFrom(x => x.JoinTariffs.Select(t => t.Tariff)));
+                .ForMember(x => x.Tariffs, opt => opt.MapFrom(x => x.JoinTariffs.Select(t => t.Tariff)))
+                .ForMember(x => x.TariffIds, opt => opt.Ignore());
+            
             CreateMap<ClientDto, Client>()
-                .ForMember(x => x.JoinTariffs, opt => opt.Ignore());
+                .ForMember(x => x.JoinTariffs, opt => opt.Ignore())
+                .ForMember(x => x.House, opt => opt.Ignore());
+                
+            CreateMap<Client, ClientInfoDto>();
+
 
             CreateMap<GreyAddress, GreyAddressDto>();
             CreateMap<GreyAddressDto, GreyAddress>()

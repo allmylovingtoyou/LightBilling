@@ -196,6 +196,40 @@
 			]
 		},
 		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "AddPayment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ClientId\" : 20,\n\t\"Amount\" : \"-105.5\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Payment/Add",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Payment",
+								"Add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "House",
 			"item": [
 				{
@@ -246,7 +280,7 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/House/House?id=506",
+							"raw": "{{apiUrl}}/api/House/House?id=770",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -258,7 +292,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "506"
+									"value": "770"
 								}
 							]
 						}
@@ -307,7 +341,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"address\" : \"\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"address\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 100,\n\t\n\t\"filter\" :  {\n\t\t\"address\" : \"\"\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"address\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -602,7 +636,7 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/Client/Client?id=1",
+							"raw": "{{apiUrl}}/api/Client/Client?id=20",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -614,7 +648,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "20"
 								}
 							]
 						}
@@ -663,7 +697,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"type\" : 2\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Client/Client",
