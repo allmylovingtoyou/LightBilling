@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Client;
@@ -5,12 +6,15 @@ using Api.House;
 using Api.Requests;
 using Api.Requests.Extensions;
 using Api.Responses;
+using Castle.Core.Internal;
 using Db;
 using Domain.Client;
+using Domain.Tariff;
 using LightBilling.Extensions;
 using LightBilling.Interfaces;
 using LightBilling.Mapping;
 using LightBilling.Repositories;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace LightBilling.Services
 {
@@ -43,11 +47,25 @@ namespace LightBilling.Services
         /// <inheritdoc />
         public async Task<ClientDto> Create(ClientDto request)
         {
-            var domain = _mapper.ToEntity(request);
+            using (var db = new ApplicationDbContext())
+            {
+                var client = _mapper.ToEntity(request);
 
-            var result = await _repository.Add(domain);
 
-            return _mapper.ToDto(result);
+                if (!request.TariffIds.IsNullOrEmpty())
+                {
+                    var joins = client.JoinTariffs = new List<JoinClientsTariffs>();
+                    foreach (var tariffId in request.TariffIds)
+                    {
+                        joins.Add(new JoinClientsTariffs {Client = client, TariffId = tariffId});
+                    }
+                }
+
+                var result = await db.Clients.AddAsync(client);
+                await db.SaveChangesAsync();
+
+                return await ById(result.Entity.Id);
+            }
         }
 
         public Task<PageResponse<ClientInfoDto>> GetPage(PageRequest<ClientFilter> request)

@@ -22,6 +22,7 @@ namespace LightBilling
 
             using (var db = new ApplicationDbContext())
             {
+                db.Database.EnsureDeleted();
                 db.Database.Migrate();
             }
             

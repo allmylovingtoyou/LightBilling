@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190814183745_client")]
+    [Migration("20190815163924_client")]
     partial class client
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,8 @@ namespace Db.Migrations
                     b.Property<double>("Balance");
 
                     b.Property<string>("Comment");
+
+                    b.Property<double>("Credit");
 
                     b.Property<int>("HouseId");
 

@@ -28,6 +28,8 @@ namespace Db.Migrations
 
                     b.Property<string>("Comment");
 
+                    b.Property<double>("Credit");
+
                     b.Property<int>("HouseId");
 
                     b.Property<string>("HwIpAddress");

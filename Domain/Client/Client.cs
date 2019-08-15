@@ -24,6 +24,8 @@ namespace Domain.Client
 
         public double Balance { get; set; }
 
+        public double Credit { get; set; }
+
         public string Status { get; set; }
 
         public bool IsActive { get; set; }

@@ -20,6 +20,8 @@ namespace Api.Client
         public string Comment { get; set; }
 
         public double Balance { get; set; }
+        
+        public double Credit { get; set; }
 
         public string Status { get; set; }
 
@@ -27,10 +29,11 @@ namespace Api.Client
         public bool IsDeleted { get; set; }
 
         public int HouseId { get; set; }
-        public HouseDto House { get; set; }
+        public HouseInfoDto House { get; set; }
 
         public GreyAddressDto GreyAddress { get; set; }
 
-        public virtual List<TariffDto> Tariffs { get; set; }
+        public List<int> TariffIds { get; set;}
+        public  List<TariffDto> Tariffs { get; set; }
     }
 }
