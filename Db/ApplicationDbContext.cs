@@ -21,7 +21,7 @@ namespace Db
         public DbSet<GreyAddress> GreyAddresses { get; set; }
         public DbSet<WhiteAddress> WhiteAddresses { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        
+
         public DbSet<JoinClientsTariffs> JoinClientsTariffs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,7 +41,12 @@ namespace Db
                 .HasOne(g => g.GreyAddress)
                 .WithOne(w => w.Client)
                 .HasForeignKey<GreyAddress>(k => k.ClientId);
-            
+
+            modelBuilder.Entity<Client>()
+                .HasOne(a => a.GreyAddress)
+                .WithMany()
+                .HasForeignKey(k => k.GreyAddressId);
+
             modelBuilder.Entity<JoinClientsTariffs>()
                 .HasKey(pt => new {pt.ClientId, pt.TariffId});
 

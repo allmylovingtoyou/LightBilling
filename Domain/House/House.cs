@@ -19,7 +19,5 @@ namespace Domain.House
 
         public int? SubnetId { get; set; }
         public virtual Subnet Subnet { get; set; }
-
-        //public List<Client.Client> Clients { get; set; }
     }
 }

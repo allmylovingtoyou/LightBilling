@@ -51,20 +51,24 @@ namespace LightBilling.Services
             {
                 var client = _mapper.ToEntity(request);
 
-
-                if (!request.TariffIds.IsNullOrEmpty())
-                {
-                    var joins = client.JoinTariffs = new List<JoinClientsTariffs>();
-                    foreach (var tariffId in request.TariffIds)
-                    {
-                        joins.Add(new JoinClientsTariffs {Client = client, TariffId = tariffId});
-                    }
-                }
-
+                CreateTariffs(request, client);
+                
                 var result = await db.Clients.AddAsync(client);
                 await db.SaveChangesAsync();
 
                 return await ById(result.Entity.Id);
+            }
+        }
+
+        private static void CreateTariffs(ClientDto request, Client client)
+        {
+            if (!request.TariffIds.IsNullOrEmpty())
+            {
+                var joins = client.JoinTariffs = new List<JoinClientsTariffs>();
+                foreach (var tariffId in request.TariffIds)
+                {
+                    joins.Add(new JoinClientsTariffs {Client = client, TariffId = tariffId});
+                }
             }
         }
 

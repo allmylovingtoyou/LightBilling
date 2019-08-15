@@ -133,7 +133,7 @@
 			]
 		},
 		{
-			"name": "Subnet",
+			"name": "Network",
 			"item": [
 				{
 					"name": "GetFreeSubnets",
@@ -151,13 +151,13 @@
 							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/Subnet/Free",
+							"raw": "{{apiUrl}}/api/Network/Free",
 							"host": [
 								"{{apiUrl}}"
 							],
 							"path": [
 								"api",
-								"Subnet",
+								"Network",
 								"Free"
 							]
 						}
@@ -180,14 +180,52 @@
 							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/Subnet/all",
+							"raw": "{{apiUrl}}/api/Network/all",
 							"host": [
 								"{{apiUrl}}"
 							],
 							"path": [
 								"api",
-								"Subnet",
+								"Network",
 								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetFreeAddressesByHouseId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Network/GetFreeAddressesByHouseId?houseId=1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Network",
+								"GetFreeAddressesByHouseId"
+							],
+							"query": [
+								{
+									"key": "houseId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -280,7 +318,7 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/House/House?id=770",
+							"raw": "{{apiUrl}}/api/House/House?id=1080",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -292,7 +330,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "770"
+									"value": "1080"
 								}
 							]
 						}
@@ -538,7 +576,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t\t\"type\" : 2\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Tariff/Tariff",
@@ -601,7 +639,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\" : \"Name\"\n\n}"
+							"raw": "{\n    \"name\": \"Name\",\n    \"surname\": \"surname\",\n    \"middleName\": \"middleName\",\n    \"login\": \"login\",\n    \"password\": \"password\",\n    \"hwIpAddress\": \"10.255.128.15\",\n    \"hwPort\": \"15\",\n    \"comment\": \"comment\",\n    \"isActive\": true,\n    \"HouseId\": 13,\n    \"GreyAddressId\" : 11,\n    \"tariffIds\": [\n        1,\n        2\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Client/Client",
@@ -636,7 +674,7 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/Client/Client?id=20",
+							"raw": "{{apiUrl}}/api/Client/Client?id=3",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -648,7 +686,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "20"
+									"value": "3"
 								}
 							]
 						}
@@ -697,7 +735,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10,\n\t\n\t\"filter\" :  {\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 100,\n\t\n\t\"filter\" :  {\n\t},\n\t\"sort\" :  {\n\t\t\"fieldName\" : \"name\",\n\t\t\"order\" : \"desc\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Client/Client",
