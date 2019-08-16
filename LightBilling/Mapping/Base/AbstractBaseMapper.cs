@@ -13,14 +13,14 @@ namespace LightBilling.Mapping.Base
             _mapper = mapper;
         }
         
-        public TD ToDto(TE dto)
+        public TD ToDto(TE entity)
         {
-            return _mapper.Map<TD>(dto);
+            return _mapper.Map<TD>(entity);
         }
         
-        public TE ToEntity(TD entity)
+        public TE ToEntity(TD dto)
         {
-            return _mapper.Map<TE>(entity);
+            return _mapper.Map<TE>(dto);
         }
 
         public List<TD> ToDto(IEnumerable<TE> entities)
