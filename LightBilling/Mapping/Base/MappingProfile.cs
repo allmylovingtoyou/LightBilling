@@ -24,7 +24,9 @@ namespace LightBilling.Mapping.Base
             CreateMap<SystemUserDto, SystemUser>();
 
             CreateMap<House, HouseDto>();
-            CreateMap<HouseDto, House>();
+            CreateMap<HouseDto, House>()
+                .ForMember(x => x.Subnet, opt => opt.Ignore());
+            
             CreateMap<House, HouseInfoDto>();
 
             CreateMap<Subnet, SubnetDto>();

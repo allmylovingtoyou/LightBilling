@@ -15,6 +15,7 @@ using LightBilling.Interfaces;
 using LightBilling.Mapping;
 using LightBilling.Repositories;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace LightBilling.Services
 {
@@ -52,23 +53,11 @@ namespace LightBilling.Services
                 var client = _mapper.ToEntity(request);
 
                 CreateTariffs(request, client);
-                
+
                 var result = await db.Clients.AddAsync(client);
                 await db.SaveChangesAsync();
 
                 return await ById(result.Entity.Id);
-            }
-        }
-
-        private static void CreateTariffs(ClientDto request, Client client)
-        {
-            if (!request.TariffIds.IsNullOrEmpty())
-            {
-                var joins = client.JoinTariffs = new List<JoinClientsTariffs>();
-                foreach (var tariffId in request.TariffIds)
-                {
-                    joins.Add(new JoinClientsTariffs {Client = client, TariffId = tariffId});
-                }
             }
         }
 
@@ -96,14 +85,63 @@ namespace LightBilling.Services
             }
         }
 
-        public Task<ClientDto> Update(ClientUpdateDto request)
+        public async Task<ClientDto> Update(ClientUpdateDto request)
         {
-            throw new System.NotImplementedException();
+            //TODO need implement validator
+
+            using (var db = new ApplicationDbContext())
+            {
+                var client = db.Clients
+                    .AsQueryable();
+
+                var toUpdate = client.FirstOrDefault(h => h.Id == request.Id);
+
+                if (toUpdate == null)
+                {
+                    throw new InternalExceptions.NotFoundException($"{nameof(Client)} with id  {request.Id}");
+                }
+
+                toUpdate.Name = request.Name;
+                toUpdate.Surname = request.Surname;
+                toUpdate.MiddleName = request.MiddleName;
+                toUpdate.Login = request.Login;
+                toUpdate.Password = request.Password;
+                toUpdate.HwIpAddress = request.HwIpAddress;
+                toUpdate.HwPort = request.HwPort;
+                toUpdate.Comment = request.Comment;
+                toUpdate.Credit = request.Credit;
+                toUpdate.IsActive = request.IsActive;
+                toUpdate.HouseId = request.HouseId;
+                toUpdate.GreyAddressId = request.GreyAddressId;
+
+                
+                UpdateTariffs(request, toUpdate);
+
+                db.Clients.Update(toUpdate);
+                
+                await db.SaveChangesAsync();
+
+                return await ById(toUpdate.Id);
+            }
         }
 
-        public Task<ClientDto> Delete(int id)
+        public async Task<ClientDto> Delete(int id)
         {
-            throw new System.NotImplementedException();
+            using (var db = new ApplicationDbContext())
+            {
+                var client = await db.Clients.FindAsync(id);
+
+                if (client == null)
+                {
+                    throw new InternalExceptions.NotFoundException($"{nameof(Client)} with id  {id}");
+                }
+
+                client.IsDeleted = true;
+                db.Clients.Update(client);
+                await db.SaveChangesAsync();
+
+                return _mapper.ToDto(client);
+            }
         }
 
         public async Task<double> UpdateBalance(double newBalance, int clientId)
@@ -115,6 +153,45 @@ namespace LightBilling.Services
                 db.Clients.Update(client);
                 await db.SaveChangesAsync();
                 return client.Balance;
+            }
+        }
+        
+        //TODO refactor this after tests writing
+        private static void UpdateTariffs(ClientUpdateDto request, Client toUpdate)
+        {
+            var currentTariffIds = toUpdate.JoinTariffs
+                .Select(x => x.TariffId)
+                .ToList();
+            var toAdd = request.TariffIds.Except(currentTariffIds)
+                .ToList();
+            var toDel = currentTariffIds.Except(request.TariffIds)
+                .ToList();
+
+            foreach (var i in toDel)
+            {
+                toUpdate.JoinTariffs = toUpdate.JoinTariffs.Where(x => x.TariffId != i)
+                    .ToList();
+            }
+
+            foreach (var i in toAdd)
+            {
+                toUpdate.JoinTariffs.Add(new JoinClientsTariffs
+                {
+                    ClientId = toUpdate.Id,
+                    TariffId = i
+                });
+            }
+        }
+        
+        private static void CreateTariffs(ClientDto request, Client client)
+        {
+            if (!request.TariffIds.IsNullOrEmpty())
+            {
+                var joins = client.JoinTariffs = new List<JoinClientsTariffs>();
+                foreach (var tariffId in request.TariffIds)
+                {
+                    joins.Add(new JoinClientsTariffs {Client = client, TariffId = tariffId});
+                }
             }
         }
 
@@ -129,6 +206,8 @@ namespace LightBilling.Services
                 }
             }
 
+            dbResultMain = dbResultMain.Where(x => !x.IsDeleted);
+            
             return dbResultMain;
         }
 

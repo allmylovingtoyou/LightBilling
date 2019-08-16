@@ -23,21 +23,21 @@ namespace LightBilling.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Free([FromBody] object any)
+        public async Task<JsonResult> FreeSubnets([FromBody] object any)
         {
             var result = await _service.GetFreeSubnets();
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> All([FromBody] object any)
+        public async Task<JsonResult> AllSubnets([FromBody] object any)
         {
             var result = await _service.GetAllSubnets();
             return Json(result);
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetFreeAddressesByHouseId(int houseId)
+        public async Task<JsonResult> FreeAddressesByHouseId(int houseId)
         {
             var result = await _service.GetFreeAddressesByHouseId(houseId);
 

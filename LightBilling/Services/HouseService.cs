@@ -78,7 +78,7 @@ namespace LightBilling.Services
                 var result = await db.Houses.AddAsync(domain);
                 await db.SaveChangesAsync();
 
-                return _mapper.ToDto(result.Entity);
+                return await ById(result.Entity.Id);
             }
         }
 
@@ -104,22 +104,7 @@ namespace LightBilling.Services
                 toUpdate.Comment = request.Comment;
                 toUpdate.Number = request.Number;
                 toUpdate.AdditionalNumber = request.AdditionalNumber;
-                if (request.Subnet == null)
-                {
-                    toUpdate.Subnet = null;
-                }
-                else
-                {
-                    var subnet = await db.Subnets.FindAsync(request.Subnet.Id);
-                    if (subnet != null)
-                    {
-                        toUpdate.Subnet = subnet;
-                    }
-                    else
-                    {
-                        throw new InternalExceptions.NotFoundException($"subnet with Id {request.Subnet.Id}");
-                    }
-                }
+                toUpdate.SubnetId = request.SubnetId;
 
                 var result = db.Houses.Update(toUpdate);
                 await db.SaveChangesAsync();

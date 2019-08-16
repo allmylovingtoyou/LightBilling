@@ -151,14 +151,14 @@
 							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/Network/Free",
+							"raw": "{{apiUrl}}/api/Network/FreeSubnets",
 							"host": [
 								"{{apiUrl}}"
 							],
 							"path": [
 								"api",
 								"Network",
-								"Free"
+								"FreeSubnets"
 							]
 						}
 					},
@@ -180,14 +180,14 @@
 							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/Network/all",
+							"raw": "{{apiUrl}}/api/Network/AllSubnets",
 							"host": [
 								"{{apiUrl}}"
 							],
 							"path": [
 								"api",
 								"Network",
-								"all"
+								"AllSubnets"
 							]
 						}
 					},
@@ -212,14 +212,14 @@
 							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/Network/GetFreeAddressesByHouseId?houseId=1",
+							"raw": "{{apiUrl}}/api/Network/FreeAddressesByHouseId?houseId=1",
 							"host": [
 								"{{apiUrl}}"
 							],
 							"path": [
 								"api",
 								"Network",
-								"GetFreeAddressesByHouseId"
+								"FreeAddressesByHouseId"
 							],
 							"query": [
 								{
@@ -283,7 +283,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"Address\" : \"xyeva\",\n\t\"Number\" : 17,\n\t\"Comment\" : \"Наркоманы в подъезде\",\n\t\"subnet\" : {\"Address\" : \"1\"}\n}"
+							"raw": "{\n\t\"Address\" : \"xyeva\",\n\t\"Number\" : 17,\n\t\"Comment\" : \"Наркоманы в подъезде\",\n\t\"SubnetId\" : 1\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -350,7 +350,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 507,\n    \"address\": \"xyeva\",\n    \"number\": \"17\",\n    \"additionalNumber\": null,\n    \"comment\": \"Наркоманы в подъезде\",\n    \"porch\": null,\n    \"subnet\" : {\"id\" : 1}\n}"
+							"raw": "{\r\n    \"id\": 14,\r\n    \"address\": \"xyeva\",\r\n    \"number\": \"17\",\r\n    \"additionalNumber\": null,\r\n    \"comment\": \"Наркоманы в подъезде\",\r\n    \"porch\": null,\r\n    \"subnetId\": 2\r\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/House/House",
@@ -706,7 +706,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"name\": \"xyeva\",\n    \"comment\": \"xyent\",\n    \"isPeriodic\": true,\n    \"type\": 2,\n    \"typeString\": \"Any\",\n    \"inputRate\": 513,\n    \"outputRate\": 512\n}"
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Name\",\r\n    \"surname\": \"surname\",\r\n    \"middleName\": \"middleName\",\r\n    \"login\": \"login\",\r\n    \"password\": \"password\",\r\n    \"hwIpAddress\": \"10.255.128.15\",\r\n    \"hwPort\": \"15\",\r\n    \"comment\": \"comment\",\r\n    \"credit\": 50,\r\n    \"status\": null,\r\n    \"isActive\": true,\r\n    \"houseId\": 1,\r\n    \"greyAddressId\": 1,\r\n    \"tariffIds\": [\r\n        1,2,3,4\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Client/Client",
