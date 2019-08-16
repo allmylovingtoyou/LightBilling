@@ -30,7 +30,9 @@ namespace Db.Migrations
 
                     b.Property<double>("Credit");
 
-                    b.Property<int>("HouseId");
+                    b.Property<int?>("GreyAddressId");
+
+                    b.Property<int?>("HouseId");
 
                     b.Property<string>("HwIpAddress");
 
@@ -53,6 +55,8 @@ namespace Db.Migrations
                     b.Property<string>("Surname");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GreyAddressId");
 
                     b.HasIndex("HouseId");
 
@@ -96,8 +100,7 @@ namespace Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId")
-                        .IsUnique();
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("SubnetId");
 
@@ -210,10 +213,13 @@ namespace Db.Migrations
 
             modelBuilder.Entity("Domain.Client.Client", b =>
                 {
+                    b.HasOne("Domain.Network.GreyAddress", "GreyAddress")
+                        .WithMany()
+                        .HasForeignKey("GreyAddressId");
+
                     b.HasOne("Domain.House.House", "House")
                         .WithMany()
-                        .HasForeignKey("HouseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("HouseId");
                 });
 
             modelBuilder.Entity("Domain.House.House", b =>
@@ -226,8 +232,8 @@ namespace Db.Migrations
             modelBuilder.Entity("Domain.Network.GreyAddress", b =>
                 {
                     b.HasOne("Domain.Client.Client", "Client")
-                        .WithOne("GreyAddress")
-                        .HasForeignKey("Domain.Network.GreyAddress", "ClientId");
+                        .WithMany()
+                        .HasForeignKey("ClientId");
 
                     b.HasOne("Domain.Network.Subnet")
                         .WithMany("Addresses")

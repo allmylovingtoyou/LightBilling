@@ -7,10 +7,12 @@ using Api.User;
 
 namespace LightBilling.Interfaces
 {
-    public interface ISubnetService
+    public interface INetworkService
     {
         Task<List<SubnetInfoDto>> GetFreeSubnets();
 
         Task<List<SubnetInfoDto>> GetAllSubnets();
+        
+        Task<List<GreyAddressDto>> GetFreeAddressesByHouseId(int houseId);
     }
 }

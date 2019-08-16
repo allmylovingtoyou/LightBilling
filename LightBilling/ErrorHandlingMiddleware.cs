@@ -54,6 +54,9 @@ namespace LightBilling
                 Type = exception.GetType().ToString();
                 Message = exception.Message;
 
+                InnerMessage = exception.InnerException?.Message;
+
+
                 if (exception is NotFoundException)
                 {
                     Message = $"Not found {exception.Message}";
@@ -65,6 +68,8 @@ namespace LightBilling
 
             public string Type { get; set; }
             public string Message { get; set; }
+
+            public string InnerMessage { get; set; }
             public string Trace { get; set; }
         }
     }

@@ -38,8 +38,9 @@ namespace LightBilling
             services.AddScoped<ITariffService, TariffService>();
             services.AddScoped<TariffMapper>();
 
-            services.AddScoped<ISubnetService, SubnetService>();
+            services.AddScoped<INetworkService, NetworkService>();
             services.AddScoped<SubnetMapper>();
+            services.AddScoped<GreyAddressMapper>();
 
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ClientMapper>();

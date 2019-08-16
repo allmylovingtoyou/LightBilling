@@ -13,27 +13,35 @@ namespace LightBilling.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class SubnetController : Controller
+    public class Network : Controller
     {
-        private readonly ISubnetService _service;
+        private readonly INetworkService _service;
 
-        public SubnetController(ISubnetService service)
+        public Network(INetworkService service)
         {
             _service = service;
         }
 
         [HttpPost]
-        public async Task<JsonResult> Free([FromBody] object any)
+        public async Task<JsonResult> FreeSubnets([FromBody] object any)
         {
             var result = await _service.GetFreeSubnets();
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> All([FromBody] object any)
+        public async Task<JsonResult> AllSubnets([FromBody] object any)
         {
             var result = await _service.GetAllSubnets();
             return Json(result);
         }
+
+        [HttpGet]
+        public async Task<JsonResult> FreeAddressesByHouseId(int houseId)
+        {
+            var result = await _service.GetFreeAddressesByHouseId(houseId);
+
+            return Json(result);
+        }
     }
-}
+} 

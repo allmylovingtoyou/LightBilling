@@ -33,8 +33,10 @@ namespace Domain.Client
 
         public virtual ICollection<JoinClientsTariffs> JoinTariffs { get; set; }
 
-        public int HouseId { get; set; }
+        public int? HouseId { get; set; }
         public virtual House.House House { get; set; }
+
+        public int? GreyAddressId { get; set; }
 
         public virtual GreyAddress GreyAddress { get; set; }
     }
