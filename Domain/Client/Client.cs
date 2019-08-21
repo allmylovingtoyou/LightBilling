@@ -11,11 +11,13 @@ namespace Domain.Client
     public class Client : IBaseEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string MiddleName { get; set; }
+        public string FullName { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+
+        public string PassportData { get; set; }
+        
+        public string PhoneNumber { get; set; }
 
         public string HwIpAddress { get; set; }
         public string HwPort { get; set; }

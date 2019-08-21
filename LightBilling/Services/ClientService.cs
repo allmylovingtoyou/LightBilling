@@ -101,9 +101,9 @@ namespace LightBilling.Services
                     throw new InternalExceptions.NotFoundException($"{nameof(Client)} with id  {request.Id}");
                 }
 
-                toUpdate.Name = request.Name;
-                toUpdate.Surname = request.Surname;
-                toUpdate.MiddleName = request.MiddleName;
+                toUpdate.FullName = request.FullName;
+                toUpdate.PassportData = request.PassportData;
+                toUpdate.PhoneNumber = request.PhoneNumber;
                 toUpdate.Login = request.Login;
                 toUpdate.Password = request.Password;
                 toUpdate.HwIpAddress = request.HwIpAddress;
@@ -202,7 +202,7 @@ namespace LightBilling.Services
             {
                 if (filter.Name != null)
                 {
-                    dbResultMain = dbResultMain.Where(x => x.Name.Contains(filter.Name));
+                    dbResultMain = dbResultMain.Where(x => x.FullName.Contains(filter.Name));
                 }
             }
 
@@ -220,11 +220,11 @@ namespace LightBilling.Services
                 return dbResult;
             }
 
-            if (sort.FieldName.Equals(nameof(Client.Name).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(Client.FullName).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
-                    ? dbResult.OrderBy(x => x.Name)
-                    : dbResult.OrderByDescending(x => x.Name);
+                    ? dbResult.OrderBy(x => x.FullName)
+                    : dbResult.OrderByDescending(x => x.FullName);
             }
 
             return dbResult;

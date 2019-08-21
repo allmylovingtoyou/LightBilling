@@ -30,6 +30,8 @@ namespace Db.Migrations
 
                     b.Property<double>("Credit");
 
+                    b.Property<string>("FullName");
+
                     b.Property<int?>("GreyAddressId");
 
                     b.Property<int?>("HouseId");
@@ -44,15 +46,13 @@ namespace Db.Migrations
 
                     b.Property<string>("Login");
 
-                    b.Property<string>("MiddleName");
-
-                    b.Property<string>("Name");
+                    b.Property<string>("PassportData");
 
                     b.Property<string>("Password");
 
-                    b.Property<string>("Status");
+                    b.Property<string>("PhoneNumber");
 
-                    b.Property<string>("Surname");
+                    b.Property<string>("Status");
 
                     b.HasKey("Id");
 
