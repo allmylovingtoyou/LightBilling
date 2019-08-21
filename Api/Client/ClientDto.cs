@@ -14,7 +14,7 @@ namespace Api.Client
 
         public string Login { get; set; }
         public string Password { get; set; }
-        
+
         public string PassportData { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -39,23 +39,9 @@ namespace Api.Client
         public int? GreyAddressId { get; set; }
         public GreyAddressDto GreyAddress { get; set; }
 
-        public List<int> TariffIds
-        {
-            get
-            {
-                if (_tIds == null)
-                {
-                    return Tariffs?.Select(x => x.Id)
-                        .ToList();
-                }
-
-                return _tIds;
-            }
-            set => _tIds = value;
-        }
-
-        private List<int> _tIds;
-
         public List<TariffDto> Tariffs { get; set; }
+
+        //TODO сделать чтоб заполнялось при отдаче или сделать createDto
+        public List<int> TariffIds { get; set; }
     }
 }
