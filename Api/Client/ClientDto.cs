@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Api.House;
 using Api.Network;
 using Api.Tariff;
@@ -27,6 +27,8 @@ namespace Api.Client
         public double Balance { get; set; }
 
         public double Credit { get; set; }
+        public DateTime? CreditValidFrom { get; set; }
+        public DateTime? CreditValidTo { get; set; }
 
         public string Status { get; set; }
 
@@ -35,6 +37,8 @@ namespace Api.Client
 
         public int? HouseId { get; set; }
         public HouseInfoDto House { get; set; }
+
+        public string ApartmentNumber { get; set; }
 
         public int? GreyAddressId { get; set; }
         public GreyAddressDto GreyAddress { get; set; }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Api.Network;
 
@@ -26,11 +27,14 @@ namespace Api.House
         public string Comment { get; set; }
 
         public double Credit { get; set; }
+        public DateTime? CreditValidFrom { get; set; }
+        public DateTime? CreditValidTo { get; set; }
 
         public bool IsActive { get; set; }
 
         public int? HouseId { get; set; }
-
+        
+        public string ApartmentNumber { get; set; }
         public int? GreyAddressId { get; set; }
 
         public List<int> TariffIds { get; set; } = new List<int>();

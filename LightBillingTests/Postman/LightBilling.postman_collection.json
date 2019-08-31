@@ -249,7 +249,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"ClientId\" : 20,\n\t\"Amount\" : \"-105.5\"\n}"
+							"raw": "{\n\t\"ClientId\" : 1,\n\t\"Amount\" : \"23455.5\",\n\t\"Comment\" : \"sdfkljglkjh\"\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Payment/Add",
@@ -639,7 +639,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Name\",\n    \"surname\": \"surname\",\n    \"middleName\": \"middleName\",\n    \"login\": \"login\",\n    \"password\": \"password\",\n    \"hwIpAddress\": \"10.255.128.15\",\n    \"hwPort\": \"15\",\n    \"comment\": \"comment\",\n    \"isActive\": true,\n    \"HouseId\": 13,\n    \"GreyAddressId\" : 11,\n    \"tariffIds\": [\n        1,\n        2\n    ]\n}"
+							"raw": "{\n    \"fullName\": \"Name\",\n    \"login\": \"login\",\n    \"password\": \"password\",\n    \"hwIpAddress\": \"10.255.128.15\",\n    \"hwPort\": \"15\",\n    \"comment\": \"comment\",\n    \"isActive\": true,\n    \"HouseId\": 13,\n    \"CreditValidFrom\" : \"2019-08-31T23:12:06.33711\",\n    \"CreditValidTo\" : \"2019-08-31T23:12:06.33711\",\n    \"GreyAddressId\" : 11,\n    \"tariffIds\": [\n        1,\n        2\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Client/Client",
@@ -775,6 +775,40 @@
 								"api",
 								"Client",
 								"Client"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PaymentReport",
+			"item": [
+				{
+					"name": "PaymentReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"from\" : \"2019-07-31T23:00:38.438723\",\n\t\"to\" : \"2019-09-25T23:00:38.438723\",\n\t\"ClientId\" : 1,\n\t\"PaymentType\" : 1\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Report/PaymentReport",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Report",
+								"PaymentReport"
 							]
 						}
 					},

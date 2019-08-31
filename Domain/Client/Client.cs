@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Domain.Base;
 using Domain.Network;
@@ -23,10 +24,11 @@ namespace Domain.Client
         public string HwPort { get; set; }
 
         public string Comment { get; set; }
-
         public double Balance { get; set; }
 
         public double Credit { get; set; }
+        public DateTime? CreditValidFrom { get; set; }
+        public DateTime? CreditValidTo { get; set; }
 
         public string Status { get; set; }
 
@@ -36,6 +38,8 @@ namespace Domain.Client
         public virtual ICollection<JoinClientsTariffs> JoinTariffs { get; set; }
 
         public int? HouseId { get; set; }
+
+        public string ApartmentNumber { get; set; }
         public virtual House.House House { get; set; }
 
         public int? GreyAddressId { get; set; }

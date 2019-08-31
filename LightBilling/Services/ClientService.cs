@@ -112,8 +112,10 @@ namespace LightBilling.Services
                 toUpdate.Credit = request.Credit;
                 toUpdate.IsActive = request.IsActive;
                 toUpdate.HouseId = request.HouseId;
+                toUpdate.ApartmentNumber = request.ApartmentNumber; 
                 toUpdate.GreyAddressId = request.GreyAddressId;
-
+                toUpdate.CreditValidFrom = request.CreditValidFrom;
+                toUpdate.CreditValidTo = request.CreditValidTo;
                 
                 UpdateTariffs(request, toUpdate);
 
