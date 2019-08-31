@@ -26,7 +26,7 @@ namespace LightBilling.Controllers
         [HttpPost]
         public async Task<JsonResult> Add([FromBody] PaymentAddDto request)
         {
-            var result = await _service.AddPayment(request.Amount, request.ClientId);
+            var result = await _service.AddPayment(request);
             return Json(result);
         }
     }

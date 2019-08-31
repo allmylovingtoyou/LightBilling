@@ -49,6 +49,8 @@ namespace LightBilling
             services.AddScoped<PaymentRepository>();
             services.AddScoped<IPaymentService, PaymentService>();
 
+            services.AddScoped<IReportService, ReportService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

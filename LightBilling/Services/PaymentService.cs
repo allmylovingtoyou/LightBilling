@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Api.Client;
 using Api.Payment;
 using Domain.Payment;
 using LightBilling.Interfaces;
@@ -8,6 +7,7 @@ using LightBilling.Repositories;
 
 namespace LightBilling.Services
 {
+    /// <inheritdoc />
     public class PaymentService : IPaymentService
     {
         private readonly PaymentRepository _repository;
@@ -19,18 +19,21 @@ namespace LightBilling.Services
             _clientService = clientService;
         }
 
-        public async Task<BalanceDto> AddPayment(double amount, int clientId)
+        /// <inheritdoc />
+        public async Task<BalanceDto> AddPayment(PaymentAddDto request)
         {
             var payment = new Payment
             {
-                ClientId = clientId,
-                Amount = amount,
-                DateTime = DateTime.Now
+                ClientId = request.ClientId,
+                Amount = request.Amount,
+                Comment = request.Comment,
+                DateTime = DateTime.Now,
+                Type = PaymentType.User
             };
 
             await _repository.Add(payment);
 
-            var payments = await _repository.GetByClientId(clientId);
+            var payments = await _repository.GetByClientId(request.ClientId);
 
             var balance = 0.0;
             foreach (var pay in payments)
@@ -40,8 +43,8 @@ namespace LightBilling.Services
 
             return new BalanceDto
             {
-                ClientId = clientId,
-                Balance = await _clientService.UpdateBalance(balance, clientId)
+                ClientId = request.ClientId,
+                Balance = await _clientService.UpdateBalance(balance, request.ClientId)
             };
         }
     }
