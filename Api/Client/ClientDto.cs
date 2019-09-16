@@ -39,6 +39,8 @@ namespace Api.Client
         public HouseInfoDto House { get; set; }
 
         public string ApartmentNumber { get; set; }
+        
+        public string MacAddress { get; set; }
 
         public int? GreyAddressId { get; set; }
         public GreyAddressDto GreyAddress { get; set; }

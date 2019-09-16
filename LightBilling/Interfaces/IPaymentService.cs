@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Payment;
+using Domain.Payment;
 
 namespace LightBilling.Interfaces
 {
@@ -12,7 +14,14 @@ namespace LightBilling.Interfaces
         /// Add payment to client
         /// </summary>
         /// <param name="request">PaymentAddDto</param>
+        /// <param name="type"></param>
         /// <returns>Current user balance</returns>
-        Task<BalanceDto> AddPayment(PaymentAddDto request);
+        Task<BalanceDto> AddPayment(PaymentAddDto request, PaymentType type = PaymentType.User);
+
+        /// <summary>
+        /// Списать месячную плату по периодическим услугам
+        /// </summary>
+        /// <returns></returns>
+        Task<List<BalanceDto>> WithdrawMonthlyFee();
     }
 }

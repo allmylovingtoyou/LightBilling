@@ -31,6 +31,8 @@ namespace Api.House
         public DateTime? CreditValidTo { get; set; }
 
         public bool IsActive { get; set; }
+        
+        public string MacAddress { get; set; }
 
         public int? HouseId { get; set; }
         

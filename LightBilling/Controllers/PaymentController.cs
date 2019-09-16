@@ -29,5 +29,12 @@ namespace LightBilling.Controllers
             var result = await _service.AddPayment(request);
             return Json(result);
         }
+        
+        [HttpPatch]
+        public async Task<JsonResult> WithdrawMonthlyFee()
+        {
+            var result = await _service.WithdrawMonthlyFee();
+            return Json(result);
+        }
     }
 }

@@ -125,9 +125,9 @@ namespace LightBilling.Services
                 toUpdate.IsActive = request.IsActive;
                 toUpdate.HouseId = request.HouseId;
                 toUpdate.ApartmentNumber = request.ApartmentNumber;
-
                 toUpdate.CreditValidFrom = request.CreditValidFrom;
                 toUpdate.CreditValidTo = request.CreditValidTo;
+                toUpdate.MacAddress = request.MacAddress;
 
                 await GreyAddressUpdate(request, db, toUpdate);
                 UpdateTariffs(request, toUpdate);
