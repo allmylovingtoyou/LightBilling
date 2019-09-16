@@ -1,6 +1,4 @@
-﻿using System;
-using Domain;
-using Domain.Client;
+﻿using Domain.Client;
 using Domain.House;
 using Domain.Network;
 using Domain.Payment;
@@ -12,6 +10,14 @@ namespace Db
 {
     public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
+        public ApplicationDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<SystemUser> SystemUsers { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<House> Houses { get; set; }
@@ -26,7 +32,11 @@ namespace Db
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=lightbilling;Username=lightbilling;Password=testPass");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=lightbilling;Username=lightbilling;Password=testPass");
+            }
+
             optionsBuilder.UseLazyLoadingProxies();
         }
 
@@ -46,6 +56,10 @@ namespace Db
                 .HasOne(a => a.GreyAddress)
                 .WithMany()
                 .HasForeignKey(k => k.GreyAddressId);
+
+            modelBuilder.Entity<Client>()
+                .HasIndex(i => new {i.GreyAddressId})
+                .IsUnique();
 
             modelBuilder.Entity<JoinClientsTariffs>()
                 .HasKey(pt => new {pt.ClientId, pt.TariffId});

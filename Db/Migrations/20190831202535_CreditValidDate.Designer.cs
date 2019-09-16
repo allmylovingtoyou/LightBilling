@@ -3,15 +3,17 @@ using System;
 using Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20190831202535_CreditValidDate")]
+    partial class CreditValidDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,8 +54,6 @@ namespace Db.Migrations
 
                     b.Property<string>("Login");
 
-                    b.Property<string>("MacAddress");
-
                     b.Property<string>("PassportData");
 
                     b.Property<string>("Password");
@@ -64,8 +64,7 @@ namespace Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GreyAddressId")
-                        .IsUnique();
+                    b.HasIndex("GreyAddressId");
 
                     b.HasIndex("HouseId");
 
@@ -139,7 +138,7 @@ namespace Db.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<int?>("GrayAddressId");
+                    b.Property<int>("GrayAddressId");
 
                     b.HasKey("Id");
 
@@ -259,7 +258,8 @@ namespace Db.Migrations
                 {
                     b.HasOne("Domain.Network.GreyAddress", "GrayAddress")
                         .WithOne("White")
-                        .HasForeignKey("Domain.Network.WhiteAddress", "GrayAddressId");
+                        .HasForeignKey("Domain.Network.WhiteAddress", "GrayAddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Domain.Payment.Payment", b =>

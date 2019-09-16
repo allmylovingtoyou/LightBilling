@@ -4,5 +4,7 @@ namespace Api.Payment
     {
         public int ClientId { get; set; }
         public double Amount { get; set; }
+
+        public string Comment { get; set; }
     }
 }

@@ -14,8 +14,6 @@ using LightBilling.Extensions;
 using LightBilling.Interfaces;
 using LightBilling.Mapping;
 using LightBilling.Repositories;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
 
 namespace LightBilling.Services
 {
@@ -53,11 +51,25 @@ namespace LightBilling.Services
                 var client = _mapper.ToEntity(request);
 
                 CreateTariffs(request, client);
+                await AddNetworkAddresses(request, db);
 
                 var result = await db.Clients.AddAsync(client);
                 await db.SaveChangesAsync();
 
                 return await ById(result.Entity.Id);
+            }
+        }
+
+        private static async Task AddNetworkAddresses(ClientDto request, ApplicationDbContext db)
+        {
+            if (request.WhiteAddressId.HasValue)
+            {
+                var gray = await db.GreyAddresses.FindAsync(request.GreyAddressId);
+                if (gray.White == null || gray.White.Id != request.WhiteAddressId)
+                {
+                    var white = db.WhiteAddresses.Find(request.WhiteAddressId.Value);
+                    gray.White = white;
+                }
             }
         }
 
@@ -101,9 +113,9 @@ namespace LightBilling.Services
                     throw new InternalExceptions.NotFoundException($"{nameof(Client)} with id  {request.Id}");
                 }
 
-                toUpdate.Name = request.Name;
-                toUpdate.Surname = request.Surname;
-                toUpdate.MiddleName = request.MiddleName;
+                toUpdate.FullName = request.FullName;
+                toUpdate.PassportData = request.PassportData;
+                toUpdate.PhoneNumber = request.PhoneNumber;
                 toUpdate.Login = request.Login;
                 toUpdate.Password = request.Password;
                 toUpdate.HwIpAddress = request.HwIpAddress;
@@ -112,15 +124,18 @@ namespace LightBilling.Services
                 toUpdate.Credit = request.Credit;
                 toUpdate.IsActive = request.IsActive;
                 toUpdate.HouseId = request.HouseId;
-                toUpdate.GreyAddressId = request.GreyAddressId;
+                toUpdate.ApartmentNumber = request.ApartmentNumber;
+                toUpdate.CreditValidFrom = request.CreditValidFrom;
+                toUpdate.CreditValidTo = request.CreditValidTo;
+                toUpdate.MacAddress = request.MacAddress;
 
-                
+                await GreyAddressUpdate(request, db, toUpdate);
                 UpdateTariffs(request, toUpdate);
+                await WhiteAddressUpdate(request, db, toUpdate);
 
                 db.Clients.Update(toUpdate);
-                
-                await db.SaveChangesAsync();
 
+                await db.SaveChangesAsync();
                 return await ById(toUpdate.Id);
             }
         }
@@ -155,18 +170,60 @@ namespace LightBilling.Services
                 return client.Balance;
             }
         }
-        
+
+        private static async Task GreyAddressUpdate(ClientUpdateDto request, ApplicationDbContext db, Client toUpdate)
+        {
+            if (request.GreyAddressId.HasValue)
+            {
+                if (toUpdate.GreyAddress != null && toUpdate.GreyAddressId != request.GreyAddressId.Value && toUpdate.GreyAddress.White != null)
+                {
+                    var grey = await db.GreyAddresses.FindAsync(toUpdate.GreyAddressId);
+                    if (grey.White != null)
+                    {
+                        grey.White.GrayAddress = null;
+                    }
+                }
+            }
+
+            toUpdate.GreyAddressId = request.GreyAddressId;
+        }
+
+        private static async Task WhiteAddressUpdate(ClientUpdateDto request, ApplicationDbContext db, Client toUpdate)
+        {
+            if (request.WhiteAddressId.HasValue)
+            {
+                var grey = await db.GreyAddresses.FindAsync(toUpdate.GreyAddressId);
+                if (grey.White?.Id != request.WhiteAddressId)
+                {
+                    var white = await db.WhiteAddresses.FindAsync(request.WhiteAddressId);
+                    grey.White = white;
+                }
+            }
+            else
+            {
+                if (toUpdate.GreyAddressId != null)
+                {
+                    var grey = await db.GreyAddresses.FindAsync(toUpdate.GreyAddressId);
+                    if (grey.White != null)
+                    {
+                        grey.White.GrayAddress = null;
+                    }
+                }
+            }
+        }
+
         //TODO refactor this after tests writing
         private static void UpdateTariffs(ClientUpdateDto request, Client toUpdate)
         {
             var currentTariffIds = toUpdate.JoinTariffs
                 .Select(x => x.TariffId)
                 .ToList();
+
             var toAdd = request.TariffIds.Except(currentTariffIds)
                 .ToList();
+
             var toDel = currentTariffIds.Except(request.TariffIds)
                 .ToList();
-
             foreach (var i in toDel)
             {
                 toUpdate.JoinTariffs = toUpdate.JoinTariffs.Where(x => x.TariffId != i)
@@ -182,7 +239,7 @@ namespace LightBilling.Services
                 });
             }
         }
-        
+
         private static void CreateTariffs(ClientDto request, Client client)
         {
             if (!request.TariffIds.IsNullOrEmpty())
@@ -202,29 +259,27 @@ namespace LightBilling.Services
             {
                 if (filter.Name != null)
                 {
-                    dbResultMain = dbResultMain.Where(x => x.Name.Contains(filter.Name));
+                    dbResultMain = dbResultMain.Where(x => x.FullName.Contains(filter.Name));
                 }
             }
 
             dbResultMain = dbResultMain.Where(x => !x.IsDeleted);
-            
             return dbResultMain;
         }
 
         private static IQueryable<Client> Sort(PageRequest<ClientFilter> request, IQueryable<Client> dbResult)
         {
             var sort = request.Sort;
-
             if (sort?.FieldName == null)
             {
                 return dbResult;
             }
 
-            if (sort.FieldName.Equals(nameof(Client.Name).ToLowerInvariant()))
+            if (sort.FieldName.Equals(nameof(Client.FullName).ToLowerInvariant()))
             {
                 dbResult = sort.Order == SortType.Asc
-                    ? dbResult.OrderBy(x => x.Name)
-                    : dbResult.OrderByDescending(x => x.Name);
+                    ? dbResult.OrderBy(x => x.FullName)
+                    : dbResult.OrderByDescending(x => x.FullName);
             }
 
             return dbResult;

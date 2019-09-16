@@ -18,9 +18,7 @@ namespace DevelopData.Entity
         {
             var client1 = (new Client()
             {
-                Name = "Вася",
-                Surname = "Петров",
-                MiddleName = "Сысоевич",
+                FullName = "Вася Петров"
             });
 
             var tariff1 = TariffDevData.DevDataTariffs.First();

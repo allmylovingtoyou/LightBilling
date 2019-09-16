@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using static LightBilling.Utils.Constants;
 
 namespace LightBilling
 {
@@ -26,8 +27,10 @@ namespace LightBilling
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var autoMapper = CreateAutoMapper();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString(ConfigConnectionString)));
 
+            var autoMapper = CreateAutoMapper();
             services.AddSingleton(autoMapper);
 
             services.AddScoped<ISystemUserService, SystemUserService>();
@@ -41,6 +44,7 @@ namespace LightBilling
             services.AddScoped<INetworkService, NetworkService>();
             services.AddScoped<SubnetMapper>();
             services.AddScoped<GreyAddressMapper>();
+            services.AddScoped<WhiteAddressMapper>();
 
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ClientMapper>();
@@ -48,6 +52,8 @@ namespace LightBilling
 
             services.AddScoped<PaymentRepository>();
             services.AddScoped<IPaymentService, PaymentService>();
+
+            services.AddScoped<IReportService, ReportService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

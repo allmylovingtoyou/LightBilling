@@ -1,20 +1,23 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Api.House;
 using Api.Network;
 using Api.Tariff;
-using Newtonsoft.Json;
 
 namespace Api.Client
 {
     public class ClientDto
     {
         public int? Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string MiddleName { get; set; }
+
+        public string FullName { get; set; }
+
         public string Login { get; set; }
         public string Password { get; set; }
+
+        public string PassportData { get; set; }
+
+        public string PhoneNumber { get; set; }
 
         public string HwIpAddress { get; set; }
         public string HwPort { get; set; }
@@ -24,6 +27,8 @@ namespace Api.Client
         public double Balance { get; set; }
 
         public double Credit { get; set; }
+        public DateTime? CreditValidFrom { get; set; }
+        public DateTime? CreditValidTo { get; set; }
 
         public string Status { get; set; }
 
@@ -33,26 +38,18 @@ namespace Api.Client
         public int? HouseId { get; set; }
         public HouseInfoDto House { get; set; }
 
+        public string ApartmentNumber { get; set; }
+        
+        public string MacAddress { get; set; }
+
         public int? GreyAddressId { get; set; }
         public GreyAddressDto GreyAddress { get; set; }
 
-        public List<int> TariffIds
-        {
-            get
-            {
-                if (_tIds == null)
-                {
-                    return Tariffs?.Select(x => x.Id)
-                        .ToList();
-                }
-
-                return _tIds;
-            }
-            set => _tIds = value;
-        }
-
-        private List<int> _tIds;
-
         public List<TariffDto> Tariffs { get; set; }
+
+        //TODO сделать чтоб заполнялось при отдаче или сделать createDto
+        public List<int> TariffIds { get; set; }
+
+        public int? WhiteAddressId { get; set;}
     }
 }
