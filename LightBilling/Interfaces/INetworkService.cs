@@ -14,5 +14,7 @@ namespace LightBilling.Interfaces
         Task<List<SubnetInfoDto>> GetAllSubnets();
         
         Task<List<GreyAddressDto>> GetFreeAddressesByHouseId(int houseId);
+
+        Task<List<WhiteAddressDto>> GetFreeWhiteAddresses();
     }
 }

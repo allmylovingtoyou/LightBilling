@@ -18,11 +18,13 @@ namespace LightBilling.Services
     {
         private readonly SubnetMapper _subnetMapper;
         private readonly GreyAddressMapper _greyAddressMapper;
+        private readonly WhiteAddressMapper _whiteAddressMapper;
 
-        public NetworkService(SubnetMapper subnetMapper, GreyAddressMapper greyAddressMapper)
+        public NetworkService(SubnetMapper subnetMapper, GreyAddressMapper greyAddressMapper, WhiteAddressMapper whiteAddressMapper)
         {
             _subnetMapper = subnetMapper;
             _greyAddressMapper = greyAddressMapper;
+            _whiteAddressMapper = whiteAddressMapper;
         }
 
         public Task<List<SubnetInfoDto>> GetFreeSubnets()
@@ -59,6 +61,16 @@ namespace LightBilling.Services
                 var addresses = result.Subnet.Addresses.Where(address => !address.ClientId.HasValue);
 
                 return _greyAddressMapper.ToDto(addresses);
+            }
+        }
+
+        public Task<List<WhiteAddressDto>> GetFreeWhiteAddresses()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var dbResult = db.WhiteAddresses.AsQueryable();
+                var result = dbResult.Where(x => x.GrayAddressId == null);
+                return Task.FromResult(_whiteAddressMapper.ToDto(result));
             }
         }
     }

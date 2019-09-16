@@ -36,6 +36,7 @@ namespace Api.House
         
         public string ApartmentNumber { get; set; }
         public int? GreyAddressId { get; set; }
+        public int? WhiteAddressId { get; set; }
 
         public List<int> TariffIds { get; set; } = new List<int>();
     }

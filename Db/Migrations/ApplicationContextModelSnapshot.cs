@@ -62,7 +62,8 @@ namespace Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GreyAddressId");
+                    b.HasIndex("GreyAddressId")
+                        .IsUnique();
 
                     b.HasIndex("HouseId");
 
@@ -136,7 +137,7 @@ namespace Db.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<int>("GrayAddressId");
+                    b.Property<int?>("GrayAddressId");
 
                     b.HasKey("Id");
 
@@ -256,8 +257,7 @@ namespace Db.Migrations
                 {
                     b.HasOne("Domain.Network.GreyAddress", "GrayAddress")
                         .WithOne("White")
-                        .HasForeignKey("Domain.Network.WhiteAddress", "GrayAddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Domain.Network.WhiteAddress", "GrayAddressId");
                 });
 
             modelBuilder.Entity("Domain.Payment.Payment", b =>

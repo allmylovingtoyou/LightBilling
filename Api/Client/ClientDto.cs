@@ -47,5 +47,7 @@ namespace Api.Client
 
         //TODO сделать чтоб заполнялось при отдаче или сделать createDto
         public List<int> TariffIds { get; set; }
+
+        public int? WhiteAddressId { get; set;}
     }
 }

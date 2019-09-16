@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Api.Requests;
-using Api.House;
-using Db;
-using Domain;
+﻿using System.Threading.Tasks;
 using LightBilling.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,5 +36,12 @@ namespace LightBilling.Controllers
 
             return Json(result);
         }
+
+        [HttpGet]
+        public async Task<JsonResult> FreeWhiteAddresses()
+        {
+            var result = await _service.GetFreeWhiteAddresses();
+            return Json(result);
+        }
     }
-} 
+}

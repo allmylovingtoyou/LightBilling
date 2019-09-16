@@ -39,7 +39,8 @@ namespace LightBilling.Mapping.Base
                 .ForMember(x => x.JoinClients, opt => opt.Ignore());
             CreateMap<Client, ClientDto>()
                 .ForMember(x => x.Tariffs, opt => opt.MapFrom(x => x.JoinTariffs.Select(t => t.Tariff)))
-                .ForMember(x => x.TariffIds, opt => opt.Ignore());
+                .ForMember(x => x.TariffIds, opt => opt.MapFrom(x => x.JoinTariffs.Select(t => t.TariffId)))
+                .ForMember(x => x.WhiteAddressId, opt => opt.MapFrom(x => x.GreyAddress.White.Id));
 
             CreateMap<ClientDto, Client>()
                 .ForMember(x => x.JoinTariffs, opt => opt.Ignore())
@@ -55,9 +56,8 @@ namespace LightBilling.Mapping.Base
 
             CreateMap<WhiteAddress, WhiteAddressDto>();
             CreateMap<WhiteAddressDto, WhiteAddress>()
-                .ForMember(x => x.GrayAddress, opt => opt.Ignore())
-                .ForMember(x => x.GrayAddressId, opt => opt.Ignore());
-            //.ForMember(x => x.Ololo, opt => opt.Ignore());
+                .ForMember(x => x.GrayAddress, opt => opt.Ignore());
+//                .ForMember(x => x.GrayAddressId, opt => opt.Ignore());
         }
     }
 }
