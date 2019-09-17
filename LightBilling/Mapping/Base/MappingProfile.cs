@@ -37,10 +37,12 @@ namespace LightBilling.Mapping.Base
             CreateMap<Tariff, TariffDto>();
             CreateMap<TariffDto, Tariff>()
                 .ForMember(x => x.JoinClients, opt => opt.Ignore());
+            
             CreateMap<Client, ClientDto>()
                 .ForMember(x => x.Tariffs, opt => opt.MapFrom(x => x.JoinTariffs.Select(t => t.Tariff)))
                 .ForMember(x => x.TariffIds, opt => opt.MapFrom(x => x.JoinTariffs.Select(t => t.TariffId)))
-                .ForMember(x => x.WhiteAddressId, opt => opt.MapFrom(x => x.GreyAddress.White.Id));
+                .ForMember(x => x.WhiteAddressId, opt => opt.MapFrom(x => x.GreyAddress.White.Id))
+                .ForMember(x => x.WhiteAddress, opt => opt.MapFrom(x => x.GreyAddress.White));
 
             CreateMap<ClientDto, Client>()
                 .ForMember(x => x.JoinTariffs, opt => opt.Ignore())

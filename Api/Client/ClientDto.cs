@@ -39,7 +39,7 @@ namespace Api.Client
         public HouseInfoDto House { get; set; }
 
         public string ApartmentNumber { get; set; }
-        
+
         public string MacAddress { get; set; }
 
         public int? GreyAddressId { get; set; }
@@ -50,6 +50,8 @@ namespace Api.Client
         //TODO сделать чтоб заполнялось при отдаче или сделать createDto
         public List<int> TariffIds { get; set; }
 
-        public int? WhiteAddressId { get; set;}
+        public int? WhiteAddressId { get; set; }
+
+        public WhiteAddressDto WhiteAddress { get; set; }
     }
 }
