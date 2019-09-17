@@ -84,7 +84,7 @@ namespace LightBilling.Services
                 Amount = -cost,
                 Comment = "mountly fee"
             };
-            return await AddPayment(payment);
+            return await AddPayment(payment, PaymentType.System);
         }
     }
 }
