@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightBillingTests", "LightB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopData", "DevelopData\DevelopData.csproj", "{1A844F46-C7D9-463A-BBAD-F0419AF72A15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkUtils", "NetworkUtils\NetworkUtils.csproj", "{80DE2B9C-1D9D-4307-AA04-9ECE4B85B1C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{1A844F46-C7D9-463A-BBAD-F0419AF72A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A844F46-C7D9-463A-BBAD-F0419AF72A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A844F46-C7D9-463A-BBAD-F0419AF72A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80DE2B9C-1D9D-4307-AA04-9ECE4B85B1C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DE2B9C-1D9D-4307-AA04-9ECE4B85B1C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80DE2B9C-1D9D-4307-AA04-9ECE4B85B1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80DE2B9C-1D9D-4307-AA04-9ECE4B85B1C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
