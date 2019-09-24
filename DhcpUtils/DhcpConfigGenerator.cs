@@ -20,28 +20,31 @@ namespace NetworkUtils
 
                 var grouped = clients.GroupBy(x => x.House.Subnet);
 
+                WriteLine("group");
+                WriteLine("{");
                 foreach (var pair in grouped)
                 {
                     var net = pair.Key;
-                    WriteLine($"subnet {net.Net} {MapNetMask(net.Mask)}");
-                    WriteLine("{");
-                    WriteLine($"    option routers {net.Gateway};");
-                    WriteLine($"    option subnet-mask {MapNetMask(net.Mask)};");
+                    WriteLine($"    subnet {net.Net} netmask {MapNetMask(net.Mask)}");
+                    WriteLine("    {");
+                    WriteLine($"        option routers {net.Gateway};");
+                    WriteLine($"        option subnet-mask {MapNetMask(net.Mask)};");
 
                     foreach (var cl in pair.Select(x => x)
-                        .Where(x => !string.IsNullOrWhiteSpace(x.MacAddress))
-                        .Where(x => !string.IsNullOrWhiteSpace(x.GreyAddress.Address))
+                        .Where(x => !string.IsNullOrEmpty(x.MacAddress))
+                        .Where(x => !string.IsNullOrEmpty(x.GreyAddress.Address))
                     )
                     {
-                        Write($"    host GEN_{cl.Login} ");
+                        Write($"        host GEN_{cl.Login} ");
                         Write("{ ");
                         Write($"hardware ethernet {cl.MacAddress}; fixed-address {cl.GreyAddress.Address};");
                         Write("}");
                         WriteLine();
                     }
-                    WriteLine("}");
-                    WriteLine();
+                    WriteLine("    }");
                 }
+                WriteLine("}");
+                WriteLine();
             }
         }
 

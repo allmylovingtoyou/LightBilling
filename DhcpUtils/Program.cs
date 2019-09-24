@@ -6,13 +6,13 @@ namespace NetworkUtils
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("#Start dhcp config generator");
+            Console.WriteLine();
             var dhcp = new DhcpConfigGenerator();
             dhcp.Generate();
-            
-            
-            Console.WriteLine("End");
+
             Console.WriteLine();
+            Console.WriteLine("#End dhcp config generator");
         }
     }
 }
