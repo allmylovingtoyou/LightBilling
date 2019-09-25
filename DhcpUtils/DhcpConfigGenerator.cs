@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Castle.Core;
 using Db;
 using Microsoft.EntityFrameworkCore;
 using static System.Console;
@@ -47,6 +48,7 @@ namespace NetworkUtils
                 WriteLine();
             }
         }
+        
 
         public string MapNetMask(int mask)
         {

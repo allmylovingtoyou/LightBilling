@@ -157,6 +157,25 @@ namespace LightBilling.Services
                 dbResultMain = dbResultMain.Where(x => x.Comment.Contains(filter.Comment));
             }
 
+            if (filter.Composite != null)
+            {
+                var parts = filter.Composite.Split(",");
+                if (parts.Any())
+                {
+                    dbResultMain = dbResultMain.Where(x => x.Address.Contains(parts[0]));
+
+                    if (parts.Length >= 2)
+                    {
+                        dbResultMain = dbResultMain.Where(x => x.Number.Contains(parts[1]));    
+                    }
+                    
+                    if (parts.Length >= 3)
+                    {
+                        dbResultMain = dbResultMain.Where(x => x.AdditionalNumber.Contains(parts[1]));    
+                    }
+                }
+            }
+
             return dbResultMain;
         }
 

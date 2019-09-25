@@ -6,5 +6,6 @@ namespace Api.House
         public string Number { get; set; }
         public string AdditionalNumber { get; set; }
         public string Comment { get; set; }
+        public string Composite { get; set;}
     }
 }
