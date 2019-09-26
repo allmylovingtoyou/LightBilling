@@ -9,6 +9,6 @@ namespace Api.Requests
 
         public TF Filter { get; set; }
 
-        public Sort Sort { get; set; }
+        public Sort Sort { get; set; } = new Sort();
     }
 }

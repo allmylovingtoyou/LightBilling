@@ -259,7 +259,12 @@ namespace LightBilling.Services
             {
                 if (filter.Name != null)
                 {
-                    dbResultMain = dbResultMain.Where(x => x.FullName.Contains(filter.Name));
+                    dbResultMain = dbResultMain.Where(x => x.FullName.ToLower().Contains(filter.Name.ToLower()));
+                }
+                
+                if (filter.Login != null)
+                {
+                    dbResultMain = dbResultMain.Where(x => x.Login.ToLower().Contains(filter.Login.ToLower()));
                 }
             }
 
@@ -273,6 +278,13 @@ namespace LightBilling.Services
             if (sort?.FieldName == null)
             {
                 return dbResult;
+            }
+            
+            if (sort.FieldName.Equals(nameof(Client.Id).ToLowerInvariant()))
+            {
+                dbResult = sort.Order == SortType.Asc
+                    ? dbResult.OrderBy(x => x.Id)
+                    : dbResult.OrderByDescending(x => x.Id);
             }
 
             if (sort.FieldName.Equals(nameof(Client.FullName).ToLowerInvariant()))

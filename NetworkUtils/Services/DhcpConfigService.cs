@@ -1,16 +1,16 @@
 using System;
 using System.Linq;
-using Castle.Core;
 using Db;
 using Microsoft.EntityFrameworkCore;
 using static System.Console;
 
-namespace NetworkUtils
+namespace NetworkUtils.Services
 {
-    public class DhcpConfigGenerator
+    public class DhcpConfigService
     {
         public void Generate()
         {
+            WriteLine("#Start dhcp config generator");
             using (var db = new ApplicationDbContext())
             {
                 var clients = db.Clients
@@ -47,6 +47,7 @@ namespace NetworkUtils
                 WriteLine("}");
                 WriteLine();
             }
+            WriteLine("#End dhcp config generator");
         }
         
 
