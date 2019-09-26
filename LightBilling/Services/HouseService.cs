@@ -168,7 +168,7 @@ namespace LightBilling.Services
 
                     if (parts.Length >= 3 && !string.IsNullOrWhiteSpace(parts[1]))
                     {
-                        dbResultMain = dbResultMain.Where(x => x.AdditionalNumber.ToLower().Contains(parts[1].ToLower()));
+                        dbResultMain = dbResultMain.Where(x => x.AdditionalNumber.ToLower().Contains(parts[2].ToLower()));
                     }
                 }
             }
