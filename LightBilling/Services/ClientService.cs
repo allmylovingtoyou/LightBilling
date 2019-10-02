@@ -260,10 +260,9 @@ namespace LightBilling.Services
 
                 if (filter.FullName !=  null)
                 {
-                    dbResultMain = dbResultMain.Where(x => x.FullName.ToLower().Contains(filter.Composite.ToLower()));
+                    dbResultMain = dbResultMain.Where(x => x.FullName.ToLower().Contains(filter.FullName.ToLower()));
                 }
                 
-                //TODO remove after FE changed
                 if (filter.Composite !=  null)
                 {
                     dbResultMain = dbResultMain.Where(x => x.FullName.ToLower().Contains(filter.Composite.ToLower()));
