@@ -26,8 +26,9 @@ namespace LightBilling.Mapping.Base
             CreateMap<House, HouseDto>();
             CreateMap<HouseDto, House>()
                 .ForMember(x => x.Subnet, opt => opt.Ignore());
-            
-            CreateMap<House, HouseInfoDto>();
+
+            CreateMap<House, HouseInfoDto>()
+                .ForMember(x => x.SubnetString, opt => opt.MapFrom(d => d.Subnet.Net + "/" + d.Subnet.Mask));
 
             CreateMap<Subnet, SubnetDto>();
             CreateMap<SubnetDto, Subnet>()

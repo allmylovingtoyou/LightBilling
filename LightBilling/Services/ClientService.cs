@@ -257,9 +257,21 @@ namespace LightBilling.Services
             var filter = request.Filter;
             if (filter != null)
             {
-                if (filter.Name != null)
+
+                if (filter.FullName !=  null)
                 {
-                    dbResultMain = dbResultMain.Where(x => x.FullName.ToLower().Contains(filter.Name.ToLower()));
+                    dbResultMain = dbResultMain.Where(x => x.FullName.ToLower().Contains(filter.Composite.ToLower()));
+                }
+                
+                //TODO remove after FE changed
+                if (filter.Composite !=  null)
+                {
+                    dbResultMain = dbResultMain.Where(x => x.FullName.ToLower().Contains(filter.Composite.ToLower()));
+                }
+                
+                if (filter.Id != null)
+                {
+                    dbResultMain = dbResultMain.Where(x => x.Id == filter.Id);
                 }
                 
                 if (filter.Login != null)

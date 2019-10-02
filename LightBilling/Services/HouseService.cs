@@ -46,7 +46,9 @@ namespace LightBilling.Services
         {
             using (var db = new ApplicationDbContext())
             {
-                var dbResult = db.Houses.AsQueryable();
+                var dbResult = db.Houses
+                    .Include(h => h.Subnet)
+                    .AsQueryable();
 
                 dbResult = Filter(request, dbResult);
 
@@ -183,6 +185,13 @@ namespace LightBilling.Services
             if (sort?.FieldName == null)
             {
                 return dbResult;
+            }
+
+            if (sort.FieldName.Equals(nameof(House.Id).ToLowerInvariant()))
+            {
+                dbResult = sort.Order == SortType.Asc
+                    ? dbResult.OrderBy(x => x.Id)
+                    : dbResult.OrderByDescending(x => x.Id);
             }
 
             if (sort.FieldName.Equals(nameof(House.Address).ToLowerInvariant()))
