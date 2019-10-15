@@ -58,8 +58,8 @@ namespace LightBilling.Services
                     return new List<GreyAddressDto>();
                 }
 
-                var addresses = result.Subnet.Addresses.Where(address => !address.ClientId.HasValue);
-
+                var usedGrayIds = db.Clients.Select(x => x.GreyAddressId);
+                var addresses = result.Subnet.Addresses.Where(address => !usedGrayIds.Contains(address.Id));
                 return _greyAddressMapper.ToDto(addresses);
             }
         }

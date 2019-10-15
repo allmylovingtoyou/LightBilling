@@ -20,17 +20,17 @@ namespace LightBilling
         {
             var host = CreateWebHostBuilder(args).Build();
 
-            using (var db = new ApplicationDbContext())
-            {
-                db.Database.EnsureDeleted();
-                db.Database.Migrate();
-            }
-            
-            DevelopData.Tools.Truncate();
-            DevelopData.Entity.NetworkDevData.Create();
-            DevelopData.Entity.HousesDevData.Create();
-            DevelopData.Entity.TariffDevData.Create();
-            DevelopData.Entity.ClientDevData.Create();
+//            using (var db = new ApplicationDbContext())
+//            {
+//                db.Database.EnsureDeleted();
+//                db.Database.Migrate();
+//            }
+//            
+//            DevelopData.Tools.Truncate();
+//            DevelopData.Entity.NetworkDevData.Create();
+//            DevelopData.Entity.HousesDevData.Create();
+//            DevelopData.Entity.TariffDevData.Create();
+//            DevelopData.Entity.ClientDevData.Create();
             
             host.Run();
         }

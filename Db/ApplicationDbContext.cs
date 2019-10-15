@@ -34,7 +34,7 @@ namespace Db
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=lightbilling;Username=lightbilling;Password=testPass");
+                optionsBuilder.UseNpgsql("Host=127.0.0.1;Port=5432;Database=lightbilling;Username=lightbilling;Password=testPass");
             }
 
             optionsBuilder.UseLazyLoadingProxies();

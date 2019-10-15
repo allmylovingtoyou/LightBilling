@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Api.Client.Status;
 using Api.House;
 using Api.Network;
 using Api.Tariff;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Api.Client
 {
@@ -30,16 +33,17 @@ namespace Api.Client
         public DateTime? CreditValidFrom { get; set; }
         public DateTime? CreditValidTo { get; set; }
 
-        public string Status { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ClientStatus Status { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
         public bool IsDeleted { get; set; }
 
         public int? HouseId { get; set; }
         public HouseInfoDto House { get; set; }
 
         public string ApartmentNumber { get; set; }
-        
+
         public string MacAddress { get; set; }
 
         public int? GreyAddressId { get; set; }
@@ -50,6 +54,8 @@ namespace Api.Client
         //TODO сделать чтоб заполнялось при отдаче или сделать createDto
         public List<int> TariffIds { get; set; }
 
-        public int? WhiteAddressId { get; set;}
+        public int? WhiteAddressId { get; set; }
+
+        public WhiteAddressDto WhiteAddress { get; set; }
     }
 }

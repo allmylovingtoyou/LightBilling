@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Api.House;
 using Api.Requests;
@@ -7,12 +6,10 @@ using Api.Requests.Extensions;
 using Api.Responses;
 using Db;
 using Domain.House;
-using Domain.Network;
 using LightBilling.Extensions;
 using LightBilling.Interfaces;
 using LightBilling.Mapping;
 using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Clauses.Expressions;
 
 namespace LightBilling.Services
 {
@@ -49,7 +46,9 @@ namespace LightBilling.Services
         {
             using (var db = new ApplicationDbContext())
             {
-                var dbResult = db.Houses.AsQueryable();
+                var dbResult = db.Houses
+                    .Include(h => h.Subnet)
+                    .AsQueryable();
 
                 dbResult = Filter(request, dbResult);
 
@@ -136,7 +135,7 @@ namespace LightBilling.Services
         {
             var filter = request.Filter;
             if (filter == null) return dbResultMain;
-            
+
             if (filter.Address != null)
             {
                 dbResultMain = dbResultMain.Where(x => x.Address.Contains(filter.Address));
@@ -157,6 +156,25 @@ namespace LightBilling.Services
                 dbResultMain = dbResultMain.Where(x => x.Comment.Contains(filter.Comment));
             }
 
+            if (filter.Composite != null)
+            {
+                var parts = filter.Composite.Split(", ");
+                if (parts.Any())
+                {
+                    dbResultMain = dbResultMain.Where(x => x.Address.ToLower().Contains(parts[0].ToLower()));
+
+                    if (parts.Length >= 2 && !string.IsNullOrWhiteSpace(parts[1]))
+                    {
+                        dbResultMain = dbResultMain.Where(x => x.Number.ToLower().Contains(parts[1].ToLower()));
+                    }
+
+                    if (parts.Length >= 3 && !string.IsNullOrWhiteSpace(parts[1]))
+                    {
+                        dbResultMain = dbResultMain.Where(x => x.AdditionalNumber.ToLower().Contains(parts[2].ToLower()));
+                    }
+                }
+            }
+
             return dbResultMain;
         }
 
@@ -167,6 +185,13 @@ namespace LightBilling.Services
             if (sort?.FieldName == null)
             {
                 return dbResult;
+            }
+
+            if (sort.FieldName.Equals(nameof(House.Id).ToLowerInvariant()))
+            {
+                dbResult = sort.Order == SortType.Asc
+                    ? dbResult.OrderBy(x => x.Id)
+                    : dbResult.OrderByDescending(x => x.Id);
             }
 
             if (sort.FieldName.Equals(nameof(House.Address).ToLowerInvariant()))

@@ -230,6 +230,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetFreeWhiteAddresses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"skip\" : 0,\n\t\"limit\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Network/FreeWhiteAddresses",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Network",
+								"FreeWhiteAddresses"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -260,6 +292,35 @@
 								"api",
 								"Payment",
 								"Add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WithdrawMonthlyFee",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{apiUrl}}/api/Payment/WithdrawMonthlyFee",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"api",
+								"Payment",
+								"WithdrawMonthlyFee"
 							]
 						}
 					},
@@ -639,7 +700,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"fullName\": \"Name\",\n    \"login\": \"login\",\n    \"password\": \"password\",\n    \"hwIpAddress\": \"10.255.128.15\",\n    \"hwPort\": \"15\",\n    \"comment\": \"comment\",\n    \"isActive\": true,\n    \"HouseId\": 13,\n    \"CreditValidFrom\" : \"2019-08-31T23:12:06.33711\",\n    \"CreditValidTo\" : \"2019-08-31T23:12:06.33711\",\n    \"GreyAddressId\" : 11,\n    \"tariffIds\": [\n        1,\n        2\n    ]\n}"
+							"raw": "{\n    \"fullName\": \"Name\",\n    \"login\": \"login\",\n    \"password\": \"password\",\n    \"hwIpAddress\": \"10.255.128.15\",\n    \"hwPort\": \"15\",\n    \"comment\": \"comment\",\n    \"isActive\": true,\n    \"HouseId\": 13,\n    \"CreditValidFrom\" : \"2019-08-31T23:12:06.33711\",\n    \"CreditValidTo\" : \"2019-08-31T23:12:06.33711\",\n    \"GreyAddressId\" : 16,\n    \"whiteAddressId\" : 17,\n    \"tariffIds\": [\n        1,\n        2\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Client/Client",
@@ -674,7 +735,7 @@
 							"raw": "{\n\t\"Address\" : \"Petrova\",\n\t\"Number\" : 16,\n\t\"Comment\" : \"Наркоманы в подъезде\"\n}"
 						},
 						"url": {
-							"raw": "{{apiUrl}}/api/Client/Client?id=3",
+							"raw": "{{apiUrl}}/api/Client/Client?id=2",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -686,7 +747,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "3"
+									"value": "2"
 								}
 							]
 						}
@@ -706,7 +767,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Name\",\r\n    \"surname\": \"surname\",\r\n    \"middleName\": \"middleName\",\r\n    \"login\": \"login\",\r\n    \"password\": \"password\",\r\n    \"hwIpAddress\": \"10.255.128.15\",\r\n    \"hwPort\": \"15\",\r\n    \"comment\": \"comment\",\r\n    \"credit\": 50,\r\n    \"status\": null,\r\n    \"isActive\": true,\r\n    \"houseId\": 1,\r\n    \"greyAddressId\": 1,\r\n    \"tariffIds\": [\r\n        1,2,3,4\r\n    ]\r\n}"
+							"raw": "{\r\n    \"id\": 2,\r\n    \"fullName\": \"Name\",\r\n    \"login\": \"login\",\r\n    \"password\": \"password\",\r\n    \"passportData\": null,\r\n    \"phoneNumber\": null,\r\n    \"hwIpAddress\": \"10.255.128.15\",\r\n    \"hwPort\": \"15\",\r\n    \"comment\": \"comment\",\r\n    \"balance\": 0.0,\r\n    \"credit\": 0.0,\r\n    \"creditValidFrom\": \"2019-08-31T23:12:06.33711\",\r\n    \"creditValidTo\": \"2019-08-31T23:12:06.33711\",\r\n    \"status\": null,\r\n    \"isActive\": true,\r\n    \"isDeleted\": false,\r\n    \"houseId\": 13,\r\n    \"house\": {\r\n        \"id\": 13,\r\n        \"address\": \"Рандома\",\r\n        \"number\": \"10\",\r\n        \"additionalNumber\": null,\r\n        \"comment\": null,\r\n        \"porch\": null,\r\n        \"subnetString\": \"192.168.21.0/24\"\r\n    },\r\n    \"apartmentNumber\": null,\r\n    \"greyAddressId\": 15,\r\n    \"tariffIds\": [\r\n        1,\r\n        2\r\n    ],\r\n    \"whiteAddressId\": 17\r\n}"
 						},
 						"url": {
 							"raw": "{{apiUrl}}/api/Client/Client",

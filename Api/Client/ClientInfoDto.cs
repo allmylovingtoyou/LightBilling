@@ -1,5 +1,7 @@
+using Api.Client.Status;
 using Api.House;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Api.Client
 {
@@ -15,7 +17,8 @@ namespace Api.Client
 
         public double Balance { get; set; }
 
-        public string Status { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ClientStatus Status { get; set; }
 
         public bool IsActive { get; set; }
 

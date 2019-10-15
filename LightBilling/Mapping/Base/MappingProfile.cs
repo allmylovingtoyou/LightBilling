@@ -26,8 +26,9 @@ namespace LightBilling.Mapping.Base
             CreateMap<House, HouseDto>();
             CreateMap<HouseDto, House>()
                 .ForMember(x => x.Subnet, opt => opt.Ignore());
-            
-            CreateMap<House, HouseInfoDto>();
+
+            CreateMap<House, HouseInfoDto>()
+                .ForMember(x => x.SubnetString, opt => opt.MapFrom(d => d.Subnet.Net + "/" + d.Subnet.Mask));
 
             CreateMap<Subnet, SubnetDto>();
             CreateMap<SubnetDto, Subnet>()
@@ -37,17 +38,20 @@ namespace LightBilling.Mapping.Base
             CreateMap<Tariff, TariffDto>();
             CreateMap<TariffDto, Tariff>()
                 .ForMember(x => x.JoinClients, opt => opt.Ignore());
+            
             CreateMap<Client, ClientDto>()
                 .ForMember(x => x.Tariffs, opt => opt.MapFrom(x => x.JoinTariffs.Select(t => t.Tariff)))
                 .ForMember(x => x.TariffIds, opt => opt.MapFrom(x => x.JoinTariffs.Select(t => t.TariffId)))
-                .ForMember(x => x.WhiteAddressId, opt => opt.MapFrom(x => x.GreyAddress.White.Id));
+                .ForMember(x => x.WhiteAddressId, opt => opt.MapFrom(x => x.GreyAddress.White.Id))
+                .ForMember(x => x.WhiteAddress, opt => opt.MapFrom(x => x.GreyAddress.White))
+                .ForMember(x => x.Status, opt => opt.Ignore());
 
             CreateMap<ClientDto, Client>()
                 .ForMember(x => x.JoinTariffs, opt => opt.Ignore())
                 .ForMember(x => x.House, opt => opt.Ignore());
 
-            CreateMap<Client, ClientInfoDto>();
-
+            CreateMap<Client, ClientInfoDto>()
+                .ForMember(x => x.Status, opt => opt.Ignore());
 
             CreateMap<GreyAddress, GreyAddressDto>();
             CreateMap<GreyAddressDto, GreyAddress>()
