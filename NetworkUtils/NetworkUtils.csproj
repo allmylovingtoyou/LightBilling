@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Db\Db.csproj" />
+      <ProjectReference Include="..\LightBilling\LightBilling.csproj" />
     </ItemGroup>
 
 </Project>

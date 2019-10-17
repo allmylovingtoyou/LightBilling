@@ -38,7 +38,7 @@ namespace LightBilling.Mapping
                 .ToList();
         }
 
-        private static ClientStatus CalculateClientStatus(Client client)
+        public static ClientStatus CalculateClientStatus(Client client)
         {
             if (!client.IsActive)
             {
