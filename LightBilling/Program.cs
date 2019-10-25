@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace LightBilling
 {
@@ -19,7 +20,6 @@ namespace LightBilling
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
-
 //            using (var db = new ApplicationDbContext())
 //            {
 //                db.Database.EnsureDeleted();
@@ -31,12 +31,14 @@ namespace LightBilling
 //            DevelopData.Entity.HousesDevData.Create();
 //            DevelopData.Entity.TariffDevData.Create();
 //            DevelopData.Entity.ClientDevData.Create();
-            
+
             host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+                    .ReadFrom.Configuration(hostingContext.Configuration))
                 .UseKestrel(options => { options.Listen(IPAddress.Any, 5000); })
                 .UseStartup<Startup>();
     }
