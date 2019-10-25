@@ -11,12 +11,27 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj" />
     <ProjectReference Include="..\Db\Db.csproj" />
     <ProjectReference Include="..\DevelopData\DevelopData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

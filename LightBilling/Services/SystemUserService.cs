@@ -8,20 +8,24 @@ using AutoMapper;
 using Db;
 using Domain.User;
 using LightBilling.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace LightBilling.Services
 {
     public class SystemUserService : ISystemUserService
     {
+        private readonly ILogger<SystemUserService> _logger;
         private readonly IMapper _mapper;
 
-        public SystemUserService(IMapper mapper)
+        public SystemUserService(ILogger<SystemUserService> logger,  IMapper mapper)
         {
+            _logger = logger;
             _mapper = mapper;
         }
 
         public Task<PageResponse<SystemUserDto>> GetPage(PageRequest<SystemUserFilter> request)
         {
+            _logger.LogDebug(nameof(GetPage) + " request: {@request}", request);   
             using (var db = new ApplicationDbContext())
             {
                 var total = db.SystemUsers.Count();

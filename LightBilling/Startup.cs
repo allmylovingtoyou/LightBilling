@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using static LightBilling.Utils.Constants;
 
 namespace LightBilling
@@ -22,7 +23,7 @@ namespace LightBilling
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

@@ -9,17 +9,20 @@ using Domain.Payment;
 using LightBilling.Interfaces;
 using LightBilling.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace LightBilling.Services
 {
     /// <inheritdoc />
     public class PaymentService : IPaymentService
     {
+        private readonly ILogger<PaymentService> _logger;
         private readonly PaymentRepository _repository;
         private readonly IClientService _clientService;
 
-        public PaymentService(PaymentRepository repository, IClientService clientService)
+        public PaymentService(ILogger<PaymentService> logger, PaymentRepository repository, IClientService clientService)
         {
+            _logger = logger;
             _repository = repository;
             _clientService = clientService;
         }
@@ -56,24 +59,40 @@ namespace LightBilling.Services
         public async Task<List<BalanceDto>> WithdrawMonthlyFee()
         {
             using (var db = new ApplicationDbContext())
+            using (var transaction = db.Database.BeginTransaction())
             {
-                var dbResult = db.Clients
-                    .Include(x => x.JoinTariffs)
-                    .Where(x => !x.IsDeleted)
-                    .Where(x => x.IsActive);
-
-                var balances = new List<BalanceDto>();
-                foreach (var client in dbResult)
+                try
                 {
-                    balances.AddRange(await Task.WhenAll(client.JoinTariffs
-                        .Where(x => x.Tariff.IsPeriodic)
-                        .Select(x => x.Tariff)
-                        .Select(x => x.Cost)
-                        .Select(async cost => await AddPayment(client, cost))));
+                    var balances = await WithdrawMonthlyFee(db);
+                    transaction.Commit();
+                    return balances;
                 }
-
-                return balances;
+                catch (Exception exception)
+                {
+                    _logger.LogError($"{nameof(WithdrawMonthlyFee)}", exception);
+                    throw;
+                }
             }
+        }
+
+        private async Task<List<BalanceDto>> WithdrawMonthlyFee(ApplicationDbContext db)
+        {
+            var dbResult = db.Clients
+                .Include(x => x.JoinTariffs)
+                .Where(x => !x.IsDeleted)
+                .Where(x => x.IsActive);
+
+            var balances = new List<BalanceDto>();
+            foreach (var client in dbResult)
+            {
+                balances.AddRange(await Task.WhenAll(client.JoinTariffs
+                    .Where(x => x.Tariff.IsPeriodic)
+                    .Select(x => x.Tariff)
+                    .Select(x => x.Cost)
+                    .Select(async cost => await AddPayment(client, cost))));
+            }
+
+            return balances;
         }
 
         private async Task<BalanceDto> AddPayment(Client client, double cost)

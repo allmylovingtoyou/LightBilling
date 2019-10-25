@@ -30,12 +30,12 @@ namespace NetworkUtils.Services
                         WriteLine($"#{c.Login} state {status}");
                         return;
                     }
-                    
+
                     var grey = c.GreyAddress.Address;
                     var white = c.GreyAddress.White.Address;
                     WriteLine($"#2-way mapping for {c.Login}");
                     WriteLine($"/sbin/iptables -t nat -A PREROUTING -d {white} -j DNAT --to-destination {grey}");
-                    WriteLine($"/sbin/iptables -t nat -I POSTROUTING 1 -s {grey} -o eth0.52 -j SNAT --to-source {white}");
+                    WriteLine($"/sbin/iptables -t nat -A POSTROUTING -s {grey} -o eth0.52 -j SNAT --to-source {white}");
                     WriteLine();
                 });
             }
