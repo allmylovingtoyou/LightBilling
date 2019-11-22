@@ -11,4 +11,19 @@
       <ProjectReference Include="..\LightBilling\LightBilling.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="templates\shaper_rules_default.sh" />
+      <Content Include="templates\shaper_rules_default.sh">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="templates\ipnat_rules_default.sh" />
+      <Content Include="templates\ipnat_rules_default.sh">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="templates\dhcp.conf" />
+      <Content Include="templates\dhcp.conf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

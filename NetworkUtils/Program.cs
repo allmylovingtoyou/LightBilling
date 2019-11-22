@@ -36,6 +36,9 @@ namespace NetworkUtils
                 case Args.nat:
                     new NatConfigService().Generate();
                     break;
+                case Args.shaper:
+                    new ShaperConfigService().Generate();
+                    break;
 
                 default:
                     WriteLine("Unknown Error");
