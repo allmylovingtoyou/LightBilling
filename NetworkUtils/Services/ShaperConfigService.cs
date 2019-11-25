@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using Api.Client.Status;
 using Db;
+using Domain.Tariff;
 using LightBilling.Mapping;
 using Microsoft.EntityFrameworkCore;
 using static System.Console;
@@ -35,8 +36,8 @@ namespace NetworkUtils.Services
                     //TODO
                     var tariff = c.JoinTariffs
                         .Select(jt => jt.Tariff)
-                        .FirstOrDefault(t => t.IsPeriodic);
-
+                        .FirstOrDefault(t => t.Type.Equals(TariffType.Tariff));
+                    
                     var speed = tariff?.InputRate * 1024 ?? 1024;
 
                     WriteLine($"#shaper rules for {c.Login}");
