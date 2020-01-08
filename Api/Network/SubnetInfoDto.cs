@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Api.House;
-
 namespace Api.Network
 {
     public class SubnetInfoDto

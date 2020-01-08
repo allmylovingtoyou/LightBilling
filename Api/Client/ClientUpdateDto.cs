@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Api.Network;
 
-namespace Api.House
+namespace Api.Client
 {
     /// <summary>
     /// Сущность дома

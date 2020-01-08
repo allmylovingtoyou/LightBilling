@@ -1,6 +1,3 @@
-using Api.Network;
-using Newtonsoft.Json;
-
 namespace Api.House
 {
     /// <summary>
